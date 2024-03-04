@@ -1,0 +1,54 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+#root {
+  min-width: 100vw;
+  min-height: 100vh;
+  background-color: #f5f7fa;
+}
+h1 {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+  color: rgb(31 41 55);
+}
+h2 {
+  font-size: 1.4rem;
+  line-height: 2.25rem;
+  font-weight: 500;
+  color: #4a9a81;
+}
+h3 {
+  font-size: 1.2rem;
+  line-height: 2rem;
+  font-weight: 500;
+  color: rgb(31 41 55);
+}
+h4 {
+  font-size: 1rem;
+  line-height: 2rem;
+  font-weight: 500;
+  color: rgb(31 41 55);
+}
+p {
+  color: #585c63;
+}
+input {
+  width: 100%;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+  &::placeholder {
+    opacity: 0.4;
+  }
+}
+#Home {
+  ul {
+    a {
+      font-size: 1em;
+      font-weight: 600;
+      text-decoration: underline;
+      line-height: 1.5em;
+      color: rgb(31 41 55);
+    }
+  }
+}
