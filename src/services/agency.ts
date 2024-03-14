@@ -12,7 +12,7 @@ export const getMetadata = async () => {
 export const getAgency = async () => {
   try {
     const resp = await fetch(`${url}agency`);
-    if (!resp.ok) throw new Error('Failed to fetch Metadata.');
+    if (!resp.ok) throw new Error('Failed to fetch agency.');
     const json = await resp.json();
     return json?.payload;
   } catch (error) {

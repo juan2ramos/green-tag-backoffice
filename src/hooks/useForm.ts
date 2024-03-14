@@ -11,10 +11,18 @@ export const useForm = <T>(initialForm: T) => {
       value: string | unknown[];
       type?: string;
       checked?: boolean;
+      files?: FileList | null;
     };
   }) => {
-    const { name, value, type, checked } = target;
-    const inputValue = type === 'checkbox' ? checked : value;
+    const { name, value, type, checked, files } = target;
+    const inputValue =
+      type === 'checkbox'
+        ? checked
+        : type === 'file'
+        ? files
+          ? files[0]
+          : value
+        : value;
     setFormState({
       ...formState,
       [name]: inputValue,

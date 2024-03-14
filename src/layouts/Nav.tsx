@@ -1,26 +1,49 @@
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import './nav.scss';
 const Nav = () => {
   return (
     <nav>
       <ul className=" flex items-center gap-4">
         <li>
-          <Link to="/">Inicio</Link>
+          <NavLink
+            to="/agencies"
+            className={({ isActive }) => (isActive ? 'is-active' : '')}
+          >
+            Agencias
+          </NavLink>
         </li>
         <li>
-          <Link to="/agencias">Agencias</Link>
+          <NavLink
+            to="/advertisers"
+            className={({ isActive }) => (isActive ? 'is-active' : '')}
+          >
+            Anunciantes
+          </NavLink>
         </li>
         <li>
-          <Link to="/">Anunciantes</Link>
+          <NavLink
+            to="/campaigns"
+            className={({ isActive }) => (isActive ? 'is-active' : '')}
+          >
+            Generar Reporte
+          </NavLink>
         </li>
         <li>
-          <Link to="/">Campañas</Link>
+          <NavLink
+            to="/compensation"
+            className={({ isActive }) => (isActive ? 'is-active' : '')}
+          >
+            Compensar
+          </NavLink>
         </li>
+
         <li>
-          <Link to="/">Bonos</Link>
-        </li>
-        <li>
-          <Link to="/">Compensar</Link>
+          <NavLink
+            to="/projects"
+            className={({ isActive }) => (isActive ? 'is-active' : '')}
+          >
+            Proyectos
+          </NavLink>
         </li>
       </ul>
     </nav>

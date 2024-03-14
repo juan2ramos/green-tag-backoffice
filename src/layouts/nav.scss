@@ -1,5 +1,13 @@
 nav {
   a {
-    color: white;
+    color: #9ca3af;
+    &:hover {
+      color: #ffab49;
+      text-decoration: underline;
+    }
+    &.is-active {
+      color: #ffab49;
+      text-decoration: underline;
+    }
   }
 }

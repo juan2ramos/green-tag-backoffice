@@ -1,4 +1,5 @@
 import { RouterProvider } from 'react-router-dom';
+import '@fontsource-variable/libre-franklin';
 import './styles/styles.scss';
 import { router } from './routes/router';
 import Spinner from './statics/Spinner';

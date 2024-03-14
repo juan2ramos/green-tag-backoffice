@@ -1,22 +1,26 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
+
 #root {
   min-width: 100vw;
   min-height: 100vh;
-  background-color: #f5f7fa;
+  background-color: #fcfcfc;
+}
+body {
+  font-family: 'Libre Franklin Variable', sans-serif;
 }
 h1 {
   font-size: 1.875rem;
   line-height: 2.25rem;
   font-weight: 700;
-  color: rgb(31 41 55);
+  color: #9ca3af;
 }
 h2 {
   font-size: 1.4rem;
   line-height: 2.25rem;
   font-weight: 500;
-  color: #4a9a81;
+  color: #44c949;
 }
 h3 {
   font-size: 1.2rem;
@@ -31,7 +35,7 @@ h4 {
   color: rgb(31 41 55);
 }
 p {
-  color: #585c63;
+  color: #728595;
 }
 input {
   width: 100%;
@@ -41,6 +45,59 @@ input {
     opacity: 0.4;
   }
 }
+.Table {
+  width: 100%;
+  border-collapse: collapse;
+  border-spacing: 0;
+  background-color: #fff;
+  border-radius: 0.5rem;
+  thead {
+    th {
+      background: #f3f4f6;
+      color: #728595;
+      &:first-child {
+        border-top-left-radius: 0.5rem;
+      }
+      &:last-child {
+        border-top-right-radius: 0.5rem;
+      }
+    }
+  }
+  tbody {
+    border: 1px solid #f3f4f6;
+  }
+
+  th {
+    text-align: center;
+    border-bottom: 1px solid #f3f4f6;
+    font-weight: 300;
+    font-size: 16px;
+    padding: 1.25rem 0.5rem;
+    line-height: normal;
+  }
+  td {
+    padding: 1.25rem 0.5rem;
+    border-bottom: 1px solid #f3f4f6;
+    color: #9ca3af;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 300;
+    line-height: normal;
+  }
+}
+.button-tty {
+  &:hover {
+    background-color: #44c949 !important;
+  }
+  &.enabled\:hover\:text-cyan-700:hover:enabled {
+    color: #44c949 !important;
+  }
+}
+select:focus {
+  --tw-border-opacity: 1;
+  border-color: #44c949 !important;
+}
+
 #Home {
   ul {
     a {
@@ -48,7 +105,7 @@ input {
       font-weight: 600;
       text-decoration: underline;
       line-height: 1.5em;
-      color: rgb(31 41 55);
+      color: #9ca3af;
     }
   }
 }

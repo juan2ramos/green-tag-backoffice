@@ -4,6 +4,7 @@ import { createAgency } from '../../services/agency';
 import AlertError from '../commons/AlertError';
 import { Agency } from './types';
 import { validateAdditionalData } from '../../helpers/validateAdditionalData';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const CreateAgency = () => {
   const [platforms, setIsPlatforms] = useState({
@@ -43,7 +44,8 @@ const CreateAgency = () => {
     ],
   };
 
-  const { formState, onInputChange, active } = useForm<Agency>(agency);
+  const { formState, onInputChange, active, onResetForm } =
+    useForm<Agency>(agency);
 
   const onChangeCompensation = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -78,6 +80,35 @@ const CreateAgency = () => {
       [value]: checked,
     });
   };
+  const queryClient = useQueryClient();
+
+  const { mutate } = useMutation({
+    mutationFn: createAgency,
+    onMutate: async (newAgency) => {
+      await queryClient.cancelQueries();
+      const previousAgencies = queryClient.getQueryData(['agencies']);
+      queryClient.setQueryData(['agencies'], (oldData) => {
+        const newCommentToAdd = structuredClone(newAgency);
+        newCommentToAdd.preview = true;
+
+        if (oldData == null) return [newCommentToAdd];
+        return [...oldData, newCommentToAdd];
+      });
+      onResetForm();
+      return { previousAgencies };
+    },
+    onError: (error, variables, context) => {
+      console.error(error);
+      if (context?.previousAgencies != null) {
+        queryClient.setQueryData(['agencies'], context.previousAgencies);
+      }
+    },
+    onSettled: async () => {
+      await queryClient.invalidateQueries({
+        queryKey: ['agencies'],
+      });
+    },
+  });
 
   const onFormSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -105,13 +136,13 @@ const CreateAgency = () => {
         compensationStrategies: strategiesValidated,
       };
     else delete agencyFormatted.compensationStrategies;
-    console.log(agencyFormatted);
 
     if (error) return setError(true);
-    const response = await createAgency(agencyFormatted);
-    console.log(response);
+    mutate(agencyFormatted);
+    //const response = await createAgency(agencyFormatted);
+    //console.log(response);
 
-    if (response.error) setError(true);
+    //if (response.error) setError(true);
   };
 
   return (
@@ -129,7 +160,7 @@ const CreateAgency = () => {
           <div className="flex gap-4">
             <div className="w-1/3">
               <input
-                className="mt-0 block w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-[#4A9A81]"
+                className="mt-0 block w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-[#44C949]"
                 type="text"
                 placeholder="Ingresa el nombre de la agencia"
                 name="name"
@@ -139,7 +170,7 @@ const CreateAgency = () => {
             <label className="inline-flex items-center">
               <input
                 type="checkbox"
-                className="border-gray-300 border-2 text-[#4A9A81] focus:border-gray-300 focus:ring-[#4A9A81]"
+                className="border-gray-300 border-2 text-[#44C949] focus:border-gray-300 focus:ring-[#44C949]"
                 defaultChecked={active}
                 name="active"
                 onChange={onInputChange}
@@ -158,35 +189,35 @@ const CreateAgency = () => {
                     type="checkbox"
                     value={'Equativ'}
                     onChange={handleInputChange}
-                    className="border-gray-300 border-2 text-[#4A9A81] focus:border-gray-300 focus:ring-[#4A9A81]"
+                    className="border-gray-300 border-2 text-[#44C949] focus:border-gray-300 focus:ring-[#44C949]"
                   />
                   <span className="ml-2">Equativ</span>
                 </label>
                 {platforms.Equativ && (
                   <div>
                     <input
-                      className="mt-0 block w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-[#4A9A81]"
+                      className="mt-0 block w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-[#44C949]"
                       type="text"
                       placeholder="Usuario de la plataforma"
                       name="username"
                       onChange={(e) => onChangeCompensation(e, 'Equativ')}
                     />
                     <input
-                      className="mt-0 block w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-[#4A9A81]"
+                      className="mt-0 block w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-[#44C949]"
                       type="password"
                       placeholder="Contraseña de la plataforma"
                       name="password"
                       onChange={(e) => onChangeCompensation(e, 'Equativ')}
                     />
                     <input
-                      className="mt-0 block w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-[#4A9A81]"
+                      className="mt-0 block w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-[#44C949]"
                       type="password"
                       placeholder="Client ID"
                       name="client_id"
                       onChange={(e) => onChangeCompensation(e, 'Equativ')}
                     />
                     <input
-                      className="mt-0 block w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-[#4A9A81]"
+                      className="mt-0 block w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-[#44C949]"
                       type="password"
                       placeholder="Client Secret"
                       name="client_secret"
@@ -201,21 +232,21 @@ const CreateAgency = () => {
                     type="checkbox"
                     value={'Xandr'}
                     onChange={handleInputChange}
-                    className="border-gray-300 border-2 text-[#4A9A81] focus:border-gray-300 focus:ring-[#4A9A81]"
+                    className="border-gray-300 border-2 text-[#44C949] focus:border-gray-300 focus:ring-[#44C949]"
                   />
                   <span className="ml-2">Xandr</span>
                 </label>
                 {platforms.Xandr && (
                   <div>
                     <input
-                      className="mt-0 block w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-[#4A9A81]"
+                      className="mt-0 block w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-[#44C949]"
                       type="text"
                       placeholder="Usuario de la plataforma"
                       name="username"
                       onChange={(e) => onChangeCompensation(e, 'Xandr')}
                     />
                     <input
-                      className="mt-0 block w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-[#4A9A81]"
+                      className="mt-0 block w-full px-0.5 border-0 border-b-2 border-gray-200 focus:ring-0 focus:border-[#44C949]"
                       type="password"
                       placeholder="Contraseña de la plataforma"
                       name="password"
@@ -230,7 +261,7 @@ const CreateAgency = () => {
                     type="checkbox"
                     value={'Email'}
                     onChange={handleInputChange}
-                    className="border-gray-300 border-2 text-[#4A9A81] focus:border-gray-300 focus:ring-[#4A9A81]"
+                    className="border-gray-300 border-2 text-[#44C949] focus:border-gray-300 focus:ring-[#44C949]"
                   />
                   <span className="ml-2">Vía Email</span>
                 </label>
@@ -251,7 +282,7 @@ const CreateAgency = () => {
           <div className="flex justify-center w-full">
             <button
               type="submit"
-              className="text-white bg-[#4A9A81] hover:bg-[#5ec2a2] focus:ring-4 focus:outline-none focus:ring-[#57b597] font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center w-1/3 justify-center gap-2"
+              className="text-white bg-[#44C949] hover:bg-[#3aac3e] focus:ring-4 focus:outline-none focus:ring-[#57b597] font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center w-1/3 justify-center gap-2"
             >
               Crear Agencia
               <svg

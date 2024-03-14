@@ -1,6 +1,11 @@
 import { createBrowserRouter, Outlet } from 'react-router-dom';
-import { AgencyPage, HomePage } from '../pages';
+import HomePage from '../pages/HomePage';
 import Main from '../layouts/Main';
+import ProjectPage from '../pages/ProjectPage';
+import AdvertiserPage from '../pages/AdvertiserPage';
+import CompensationPage from '../pages/CompensationPage';
+import CampaignPage from '../pages/CampaignPage';
+import AgencyPage from '../pages/AgencyPage';
 //import ErrorPage from '../pages/ErrorPage';
 
 export const router = createBrowserRouter([
@@ -13,8 +18,11 @@ export const router = createBrowserRouter([
     ),
     children: [
       { path: '/', element: <HomePage /> },
-      { path: '/agencias', element: <AgencyPage /> },
-      { path: 'advertisers', element: 'adasd' },
+      { path: '/agencies', element: <AgencyPage /> },
+      { path: '/projects', element: <ProjectPage /> },
+      { path: '/advertisers', element: <AdvertiserPage /> },
+      { path: '/compensation', element: <CompensationPage /> },
+      { path: '/campaigns', element: <CampaignPage /> },
     ],
     // errorElement: <ErrorPage />,
   },

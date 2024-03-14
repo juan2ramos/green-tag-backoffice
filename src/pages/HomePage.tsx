@@ -1,8 +1,6 @@
 const HomePage = () => {
   return (
-    <div className="flex flex-col gap-4" id="Home">
-      <h1>Bienvenido al Backoffice de Green List</h1>
-
+    <div className="flex flex-col gap-4 p-12 rounded-lg bg-white" id="Home">
       <section className="flex flex-col gap-4">
         <p>
           En Green List, nuestro compromiso es liderar el cambio hacia una
