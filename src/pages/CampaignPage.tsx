@@ -135,7 +135,7 @@ const CampaignPage = () => {
                 }
             `}
               >
-                Generar Reporte
+                Obtener datos
               </button>
             </div>
           </div>

@@ -25,7 +25,7 @@ const Nav = () => {
             to="/campaigns"
             className={({ isActive }) => (isActive ? 'is-active' : '')}
           >
-            Generar Reporte
+            Obtener datos
           </NavLink>
         </li>
         <li>
@@ -34,6 +34,14 @@ const Nav = () => {
             className={({ isActive }) => (isActive ? 'is-active' : '')}
           >
             Compensar
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/reportes"
+            className={({ isActive }) => (isActive ? 'is-active' : '')}
+          >
+            Reportes
           </NavLink>
         </li>
 

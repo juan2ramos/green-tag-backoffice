@@ -42,7 +42,8 @@ export interface CreativeGroup {
   id: string;
   startDate: string;
   endDate: string;
-  emissions: string;
+  emissions: number;
+  impressions: number;
   createdAt: string;
   updatedAt: string;
 }

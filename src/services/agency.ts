@@ -17,7 +17,7 @@ export const getAgency = async () => {
     return json?.payload;
   } catch (error) {
     console.error('Error fetching agency', error);
-    return error;
+    throw new Error((error as Error).message);
   }
 };
 export const createAgency = async (data: Agency) => {

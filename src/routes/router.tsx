@@ -6,6 +6,7 @@ import AdvertiserPage from '../pages/AdvertiserPage';
 import CompensationPage from '../pages/CompensationPage';
 import CampaignPage from '../pages/CampaignPage';
 import AgencyPage from '../pages/AgencyPage';
+import ReportPage from '../pages/ReportPage';
 //import ErrorPage from '../pages/ErrorPage';
 
 export const router = createBrowserRouter([
@@ -21,6 +22,7 @@ export const router = createBrowserRouter([
       { path: '/agencies', element: <AgencyPage /> },
       { path: '/projects', element: <ProjectPage /> },
       { path: '/advertisers', element: <AdvertiserPage /> },
+      { path: '/reportes', element: <ReportPage /> },
       { path: '/compensation', element: <CompensationPage /> },
       { path: '/campaigns', element: <CampaignPage /> },
     ],

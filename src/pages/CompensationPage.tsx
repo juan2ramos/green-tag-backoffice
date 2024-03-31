@@ -12,8 +12,7 @@ const CompensationPage = () => {
     <div className="flex flex-col gap-6">
       {isLoading && <strong>Cargando...</strong>}
       {error != null && <strong>Algo ha ido mal</strong>}
-      {data == null && !isLoading && <strong>No hay datos</strong>}
-
+      {data === null && !isLoading && <strong>No hay datos</strong>}
       {data != null && <Compensation compensations={data} />}
     </div>
   );

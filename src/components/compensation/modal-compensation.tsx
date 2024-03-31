@@ -27,6 +27,7 @@ const ModalCompensation = ({
     status: false,
     message: '',
   });
+
   const onChangeBonus = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setBonusIdSelected(e.target.value);
   };
@@ -85,13 +86,13 @@ const ModalCompensation = ({
               <b>Impresiones: </b>
               {}
               {new Intl.NumberFormat('es-CO').format(
-                parseFloat(data.creativeGroups[0].emissions),
+                data.creativeGroups[0].emissions,
               )}
             </p>
             <p>
               <b>CO2: </b>
               {new Intl.NumberFormat('es-CO').format(
-                parseFloat(data.creativeGroups[0].emissions),
+                data.creativeGroups[0].emissions,
               )}
               Kg
             </p>

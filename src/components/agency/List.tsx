@@ -1,16 +1,12 @@
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/16/solid';
 import { Agency } from './types';
-import { DateTime } from 'luxon';
+import { dateDisplay } from '../../helpers/date-display';
 
 const List = ({ data }: { data: Agency[] }) => {
   const handleClick = () => {
     console.log('Icono clickeado!');
   };
-  const dateDisplay = (date: string) => {
-    return DateTime.fromISO(date)
-      .setLocale('es')
-      .toFormat("dd 'de' LLLL 'de' yyyy");
-  };
+
   return (
     <>
       {data.map((agency) => (
