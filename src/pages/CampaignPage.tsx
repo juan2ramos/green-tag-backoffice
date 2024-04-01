@@ -7,6 +7,7 @@ import {
 import { useFetch } from '../hooks/useFetch';
 import AlertError from '../components/commons/AlertError';
 import AlertSuccess from '../components/commons/AlertSuccess';
+const urlApi = import.meta.env.VITE_API_URL;
 
 const CampaignPage = () => {
   const [agencies, setAgencies] = useState([]);
@@ -48,7 +49,7 @@ const CampaignPage = () => {
     const startDate = dataForm.get('startDate');
     const endDate = dataForm.get('endDate');
 
-    const url = `http://localhost:3007/api/v1/collection/report/${strategyName}/${strategyId}?startDate=${startDate}&endDate=${endDate}`;
+    const url = `${urlApi}v1/collection/report/${strategyName}/${strategyId}?startDate=${startDate}&endDate=${endDate}`;
     setOptions({ ...options, url });
   };
 

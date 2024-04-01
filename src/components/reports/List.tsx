@@ -5,7 +5,7 @@ import {
   ArrowDownOnSquareStackIcon,
 } from '@heroicons/react/20/solid';
 import { DateTime } from 'luxon';
-
+const url = import.meta.env.VITE_API_URL;
 interface Props {
   dates: IDates;
   strategyId: string;
@@ -30,7 +30,7 @@ const CampaignsReport = ({ dates, strategyId }: Props) => {
         <div>
           <div className="flex justify-end py-2 px-4">
             <a
-              href={`http://localhost:3007/api/v1/campaign/report/download/${strategyId}?startDate=${dates.startDate}&endDate=${dates.endDate}`}
+              href={`${url}campaign/report/download/${strategyId}?startDate=${dates.startDate}&endDate=${dates.endDate}`}
               target="_blank"
               className="bg-[#fff] text-[#5dd290]"
             >
@@ -93,7 +93,7 @@ const CampaignsReport = ({ dates, strategyId }: Props) => {
                     {campaignReport.compensation_emission_ratio && (
                       <div className="flex  gap-2 justify-center">
                         <a
-                          href={`http://localhost:3007/api/v1/campaign/report/pdf/${
+                          href={`${url}campaign/report/pdf/${
                             campaignReport.id
                           }?startDate=${DateTime.fromISO(
                             campaignReport.start_date,

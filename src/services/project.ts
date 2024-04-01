@@ -1,6 +1,6 @@
 import { Project } from '../components/project/types';
 
-const url = 'http://localhost:3007/api/v1/';
+const url = import.meta.env.VITE_API_URL;
 
 export const getProject = async () => {
   try {

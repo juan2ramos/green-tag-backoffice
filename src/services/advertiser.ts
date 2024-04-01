@@ -1,4 +1,4 @@
-const url = 'http://localhost:3007/api/v1/';
+const url = import.meta.env.VITE_API_URL;
 
 export const getAdvertiser = async ({
   strategyName,

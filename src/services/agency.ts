@@ -1,6 +1,6 @@
 import { Agency } from '../components/agency/types';
-
-const url = 'http://localhost:3007/api/v1/';
+const url = import.meta.env.VITE_API_URL;
+console.log('url', url);
 
 export const getMetadata = async () => {
   const resp = await fetch(`${url}collection/metadata`);
