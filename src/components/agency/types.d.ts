@@ -1,4 +1,5 @@
 export interface Agency {
+  preview: boolean;
   id?: string;
   name: string;
   active: boolean;

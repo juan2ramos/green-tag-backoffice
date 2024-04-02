@@ -44,8 +44,7 @@ const CreateAgency = () => {
     ],
   };
 
-  const { formState, onInputChange, active, onResetForm } =
-    useForm<Agency>(agency);
+  const { formState, onInputChange, active, onResetForm } = useForm(agency);
 
   const onChangeCompensation = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -87,7 +86,7 @@ const CreateAgency = () => {
     onMutate: async (newAgency) => {
       await queryClient.cancelQueries();
       const previousAgencies = queryClient.getQueryData(['agencies']);
-      queryClient.setQueryData(['agencies'], (oldData) => {
+      queryClient.setQueryData(['agencies'], (oldData: unknown[]) => {
         const newCommentToAdd = structuredClone(newAgency);
         newCommentToAdd.preview = true;
 
@@ -97,7 +96,7 @@ const CreateAgency = () => {
       onResetForm();
       return { previousAgencies };
     },
-    onError: (error, variables, context) => {
+    onError: (error, _variables, context) => {
       console.error(error);
       if (context?.previousAgencies != null) {
         queryClient.setQueryData(['agencies'], context.previousAgencies);
@@ -129,13 +128,14 @@ const CreateAgency = () => {
 
     let agencyFormatted = {
       ...formState,
-    };
+      preview: false,
+    } as Agency;
     if ((strategiesValidated?.length ?? 0) > 0)
       agencyFormatted = {
         ...agencyFormatted,
         compensationStrategies: strategiesValidated,
       };
-    else delete agencyFormatted.compensationStrategies;
+    else delete agencyFormatted?.compensationStrategies;
 
     if (error) return setError(true);
     mutate(agencyFormatted);

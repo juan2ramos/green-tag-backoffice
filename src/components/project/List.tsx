@@ -1,7 +1,21 @@
 import { DateTime } from 'luxon';
 import ModalBonus from './modal-bonus';
 import { useState } from 'react';
-const List = ({ projects }) => {
+interface Props {
+  projects: {
+    id: string;
+    name: string;
+    logo: string;
+    createdAt: string;
+    legacyBonuses: {
+      id: string;
+      co2Total: number;
+      co2Compensated: number;
+      url: string;
+    }[];
+  }[];
+}
+const List = ({ projects }: Props) => {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const [projectId, setProjectId] = useState('');
   const dateDisplay = (date: string) => {

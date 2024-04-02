@@ -21,8 +21,9 @@ const ReportPage = () => {
   const [strategyIdSelected, setStrategyIdSelected] = useState('');
   const [strategies, setStrategies] = useState([]);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [strategySelected, setStrategySelected] =
-    useState<CompensationStrategiesEntity | null>(null);
+  const [, setStrategySelected] = useState<CompensationStrategiesEntity | null>(
+    null,
+  );
   const [errorForm, setErrorForm] = useState(false);
   const [canGetReport, setCanGetReport] = useState(false);
   const [dates, setDates] = useState({
