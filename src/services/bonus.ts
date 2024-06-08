@@ -1,13 +1,17 @@
+import { AxiosError } from 'axios';
+import { greenTagApi } from '../api/green-tag-api';
+
 const url = import.meta.env.VITE_API_URL;
 export const getBonus = async () => {
   try {
-    const resp = await fetch(`${url}bonus`);
-    if (!resp.ok) throw new Error('Failed to fetch bonus.');
-    const json = await resp.json();
-    return json?.payload;
+    const { data } = await greenTagApi.get('/bonus');
+    return data.payload;
   } catch (error) {
-    console.error('Error fetching bonus', error);
-    return error;
+    if (error instanceof AxiosError) {
+      throw new Error(error.response?.data);
+    }
+
+    throw new Error('Unable to login');
   }
 };
 export interface Bonus {

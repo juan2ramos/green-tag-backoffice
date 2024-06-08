@@ -1,37 +1,33 @@
+import { greenTagApi } from '../api/green-tag-api';
 import { Agency } from '../components/agency/types';
-const url = import.meta.env.VITE_API_URL;
-console.log('url', url);
 
 export const getMetadata = async () => {
-  const resp = await fetch(`${url}collection/metadata`);
+  const { data } = await greenTagApi.get('collection/metadata');
+  console.log(data);
 
-  if (!resp.ok) throw new Error('Failed to fetch Metadata.');
-  const json = await resp.json();
-  return json?.payload;
+  //if (!resp.ok) throw new Error('Failed to fetch Metadata.');
+
+  return data?.payload;
 };
 export const getAgency = async () => {
   try {
-    const resp = await fetch(`${url}agency`);
-    if (!resp.ok) throw new Error('Failed to fetch agency.');
-    const json = await resp.json();
-    return json?.payload;
+    const { data } = await greenTagApi.get(`agency`);
+    return data?.payload;
   } catch (error) {
     console.error('Error fetching agency', error);
     throw new Error((error as Error).message);
   }
 };
-export const createAgency = async (data: Agency) => {
+export const createAgency = async (agency: Agency) => {
   try {
-    const resp = await fetch(`${url}agency`, {
-      method: 'POST',
+    const { data } = await greenTagApi.post(`agency`, {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(agency),
     });
-    const json = await resp.json();
-    if (!resp.ok) throw new Error(json);
-    return json?.payload;
+
+    return data?.payload;
   } catch (error) {
     return { error: error };
   }
