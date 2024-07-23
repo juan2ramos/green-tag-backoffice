@@ -1,6 +1,7 @@
+import { routes } from '@/shared/const/menu.const';
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { routes } from '../components/commons/menu';
+
 interface Props {
   titleMap: { to: string; text: string }[];
 }

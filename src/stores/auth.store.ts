@@ -3,8 +3,8 @@ import { devtools, persist } from 'zustand/middleware';
 import type {
   AuthStatus,
   User,
-} from '@/components/auth/interfaces/user.interface';
-import { login, checkStatus } from '@/components/auth/services/auth';
+} from '@/modules/auth/interfaces/user.interface';
+import { login, checkStatus } from '@/modules/auth/services/auth';
 
 export interface AuthState {
   status: AuthStatus;

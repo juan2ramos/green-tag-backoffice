@@ -1,11 +1,12 @@
 import { Outlet } from 'react-router-dom';
-import { NavSecondary } from './NavSecondary';
-import { Nav } from './Nav';
+import { Nav } from '../../shared/components/menus/Nav';
 import Logo from '../../assets/Logo-Green-Tag.svg';
+import { NavSecondary } from '../../shared/components/menus/NavSecondary';
 
 import { useAuthStore } from '../../stores/auth.store';
 import { PageTitle } from '../../routes/PageTitle';
-import { routes } from '../../components/commons/menu';
+import { routes } from '@/shared/const/menu.const';
+import { Toaster } from '@/components/ui/sonner';
 
 interface Props {
   isLoading: boolean;
@@ -53,6 +54,7 @@ export const ContentDefaultLayout = ({ isLoading }: Props) => {
           {isLoading ? <p>Cargando...</p> : <Outlet />}
         </main>
       </div>
+      <Toaster richColors />
     </div>
   );
 };

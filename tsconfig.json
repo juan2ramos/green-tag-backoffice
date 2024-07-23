@@ -23,6 +23,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["src"],
+  "include": ["src", "src/modules/green-adserving/rich-media/components/.tsx"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

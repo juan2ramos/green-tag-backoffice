@@ -1,8 +1,7 @@
 import axios from 'axios';
 import { useAuthStore } from '../stores/auth.store';
 
-/* const baseURL = import.meta.env.VITE_API_URL; */
-const baseURL = 'http://localhost:3007/api/v1/';
+const baseURL = import.meta.env.VITE_API_GREEN_TAG_URL;
 const greenTagApi = axios.create({ baseURL });
 
 greenTagApi.interceptors.request.use((config) => {
@@ -10,4 +9,5 @@ greenTagApi.interceptors.request.use((config) => {
   if (token) config.headers['Authorization'] = `Bearer ${token}`;
   return config;
 });
+
 export { greenTagApi };

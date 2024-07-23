@@ -20,19 +20,45 @@ module.exports = {
       },
     },
     extend: {
+      fontFamily: {
+        robotoFlex: ['Roboto Flex', 'sans-serif'],
+      },
+      fontWeight: {
+        thin: 100,
+        // Puedes agregar otros pesos aquí si es necesario
+      },
+      boxShadow: {
+        'custom-shadow': '0px 4px 4px -4px #F5F5F5',
+      },
+      borderColor: {
+        custom: '#DFE2EB',
+      },
+
+      spacing: {
+        '32px': '32px',
+        '36px': '36px',
+        '60px': '60px',
+      },
       colors: {
         blueTTY: 'var(--blue)',
         blackTTY: 'var(--black)',
+        greenTTY: {
+          light: 'var(--green-soft)',
+          DEFAULT: 'var(--green)', // Verde personalizado
+          dark: 'var(--green-dark)', // Verde oscuro personalizado
+        },
         blackSoftTTY: 'var(--black-soft)',
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
         ring: 'hsl(var(--ring))',
+        white: 'var(--White, #FFF)',
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
         },
+
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',

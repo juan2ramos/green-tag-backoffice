@@ -1,6 +1,6 @@
 import { Outlet } from 'react-router-dom';
 import { PageTitle } from '../../routes/PageTitle';
-import { routes } from '../../components/commons/menu';
+import { routes } from '@/shared/const/menu.const';
 
 export const Background = () => {
   return (

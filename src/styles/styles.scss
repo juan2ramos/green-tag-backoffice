@@ -9,6 +9,8 @@
 }
 body {
   font-family: 'Raleway Variable', sans-serif;
+  font-size: 14px;
+  color: #4c6770;
 }
 h1 {
   font-size: 1.875rem;
@@ -17,10 +19,9 @@ h1 {
   color: #9ca3af;
 }
 h2 {
-  font-size: 1.4rem;
-  line-height: 2.25rem;
+  color: var(--Text, #4c6770);
+  font-size: 1rem;
   font-weight: 500;
-  color: #44c949;
 }
 h3 {
   font-size: 1.2rem;
@@ -158,13 +159,16 @@ nav {
     --destructive-foreground: 210 40% 98%;
 
     --border: 225 11% 93%;
-    --input: 214.3 31.8% 91.4%;
+    --input: 209, 23%, 90%, 1;
     --ring: 222.2 84% 4.9%;
 
     --radius: 0.5rem;
     --blue: #4d6d98;
     --black: #989898;
     --black-soft: #b1b1b1;
+    --green-dark: rgba(29, 131, 36, 1);
+    --green-soft: rgba(216, 247, 221, 1);
+    --green: rgba(134, 214, 139, 1);
   }
 
   .dark {
@@ -205,4 +209,23 @@ nav {
   body {
     @apply bg-background text-foreground;
   }
+}
+.wrapper {
+  @apply flex flex-col items-start p-[32px] px-[36px] pb-[40px] gap-[36px] self-stretch rounded-[8px] border border-custom bg-white shadow-custom-shadow;
+}
+.table-row-odd {
+  background-color: #ffffff; /* Cambia a tu color preferido */
+}
+
+.table-cell-centered {
+  text-align: center;
+  vertical-align: middle;
+}
+.truncate-text {
+  display: inline-block;
+  max-width: 200px; /* Ajusta este valor según tus necesidades */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: middle;
 }

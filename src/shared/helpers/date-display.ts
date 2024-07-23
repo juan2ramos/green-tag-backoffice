@@ -1,6 +1,7 @@
 import { DateTime } from 'luxon';
 export const dateDisplay = (date: string) => {
-  return DateTime.fromISO(date)
-    .setLocale('es')
-    .toFormat("dd 'de' LLLL 'de' yyyy");
+  const string = DateTime.fromISO(date).setLocale('es').toFormat('dd MMM yyyy');
+  const parts = string.split(' ');
+  parts[1] = parts[1].charAt(0).toUpperCase() + parts[1].slice(1);
+  return parts.join(' ');
 };
