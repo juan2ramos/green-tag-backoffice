@@ -96,7 +96,7 @@ export const CreateVideo = () => {
                         {campaigns?.map((campaign: CampaignInterface) => (
                           <SelectItem
                             key={campaign.id}
-                            value={campaign.id.toString()}
+                            value={campaign.id?.toString() || ''}
                           >
                             {campaign.name}
                           </SelectItem>
