@@ -37,6 +37,7 @@ export const CampaignDetailPage = () => {
 
   useEffect(() => {
     if (campaign && campaign.campaignUrls) {
+      console.log(campaign);
       const urls = campaign.campaignUrls.map((campaignUrl) => campaignUrl.url);
       setUrlList(urls);
     }
@@ -111,6 +112,7 @@ export const CampaignDetailPage = () => {
               <hr />
               <div className="flex justify-between gap-2 mt-6">
                 <Efficiency
+                  reporting={campaign?.efficiencyReport ?? null}
                   urls={urlsList}
                   checkedState={checkedState}
                   onCategoryChange={handleCategoryChange}

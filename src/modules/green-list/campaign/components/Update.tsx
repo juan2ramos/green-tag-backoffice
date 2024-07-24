@@ -66,7 +66,6 @@ export const UpdateCampaign = ({ campaign }: UpdateCampaignProps) => {
         campaignId={campaign.id ?? 0}
       />
       <Form {...form}>
-        ``
         <form
           onSubmit={form.handleSubmit(onSubmit)}
           className="w-full flex gap-5 mt-9 mb-4 "
@@ -141,14 +140,12 @@ export const UpdateCampaign = ({ campaign }: UpdateCampaignProps) => {
         <Button
           variant={'create'}
           className="w-full bg-[#F9FCFF] text-[#B6B6B6] border border-[#DFE5EB] border-dashed text-[12px]"
-          disabled={campaign.efficiency_report === null}
           onClick={() => setDialogOpenReporting(true)}
         >
           <UploadIcon className="w-4 h-4 mr-2" />
-          {campaign.efficiency_report
+          {campaign.efficiencyReport
             ? 'El reporte ha sido generado'
             : 'Cargar sitios (Reporting)'}
-          {campaign.efficiency_report}
         </Button>
       </div>
     </>

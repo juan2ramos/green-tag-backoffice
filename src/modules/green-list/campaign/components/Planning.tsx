@@ -8,8 +8,8 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import { useCreatePlanningMutation } from '@/modules/green-tag/projects/hooks/usePlaning';
 import { UploadIcon } from '@radix-ui/react-icons';
+import { useCreatePlanningMutation } from '../hooks/usePlaning';
 
 interface PlanningProps {
   dialogOpen: boolean;

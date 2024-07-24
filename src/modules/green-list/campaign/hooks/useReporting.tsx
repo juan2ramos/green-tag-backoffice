@@ -1,11 +1,8 @@
-import { createPlanning } from '@/modules/green-list/campaign/services/planning';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { useState } from 'react';
+import { createReporting } from '../services/reporting';
 
-export const useCreatePlanningMutation = (
-  id: number,
-  handleCancel: () => void,
-) => {
+export const useReportingMutation = (id: number, handleCancel: () => void) => {
   const queryClient = useQueryClient();
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [fileName, setFileName] = useState<string>(
@@ -19,7 +16,7 @@ export const useCreatePlanningMutation = (
     }
   };
   const mutation = useMutation({
-    mutationFn: createPlanning,
+    mutationFn: createReporting,
 
     onSuccess: () => {
       setTimeout(() => {

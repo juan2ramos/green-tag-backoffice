@@ -4,12 +4,14 @@ interface EfficiencyProps {
   urls: URLInterface[];
   checkedState: { [key: string]: boolean };
   onCategoryChange: (category: string, isChecked: boolean) => void;
+  reporting: number | null;
 }
 
 export const Efficiency = ({
   urls,
   checkedState,
   onCategoryChange,
+  reporting,
 }: EfficiencyProps) => {
   const onClickEfficiency = (id: string) => {
     onCategoryChange(id, !checkedState[id]);
@@ -74,9 +76,17 @@ export const Efficiency = ({
       </div>
       <div className="leading-[18px]">
         <span className="font-semibold">Eficiencia:</span>{' '}
-        <span className=" font-robotoFlex text-[#00CA21] ">
+        <span className=" font-robotoFlex text-[#00CA21] pr-4">
           {averageScore}%
         </span>
+        {reporting && (
+          <>
+            <span className="font-semibold">Eficiencia Reporte: </span>
+            <span className=" font-robotoFlex text-[#00CA21] ">
+              {reporting}%
+            </span>
+          </>
+        )}
       </div>
     </div>
   );

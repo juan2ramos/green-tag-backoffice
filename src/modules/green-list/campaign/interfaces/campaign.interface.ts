@@ -5,7 +5,7 @@ export interface CampaignInterface {
   name: string;
   client: ClientInterface;
   campaignUrls: CampaignUrlsInterface[];
-  efficiency_report?: number;
+  efficiencyReport?: number;
   createdAt: Date;
   updatedAt: Date;
 }

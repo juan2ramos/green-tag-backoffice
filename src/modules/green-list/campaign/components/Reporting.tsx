@@ -8,8 +8,8 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
-import { useCreatePlanningMutation } from '@/modules/green-tag/projects/hooks/usePlaning';
 import { UploadIcon } from '@radix-ui/react-icons';
+import { useReportingMutation } from '../hooks/useReporting';
 
 interface ReportingProps {
   dialogOpen: boolean;
@@ -23,7 +23,7 @@ export const Reporting = ({
   campaignId,
 }: ReportingProps) => {
   const { mutation, selectedFile, fileName, handleFileChange } =
-    useCreatePlanningMutation(campaignId, handleCancel);
+    useReportingMutation(campaignId, handleCancel);
 
   const handleUpload = async () => {
     if (selectedFile) {
