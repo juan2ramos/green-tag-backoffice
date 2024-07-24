@@ -1,18 +1,6 @@
 import { ColumnDef } from '@tanstack/react-table';
 
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-
-import {
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-} from '@/components/ui/dropdown-menu';
-import { DotsHorizontalIcon, Link1Icon } from '@radix-ui/react-icons';
-
-import { Button } from '@/components/ui/button';
+import { Link1Icon } from '@radix-ui/react-icons';
 
 import { ReportInterface } from '../../interfaces/report.interface';
 export const columns: ColumnDef<ReportInterface>[] = [
