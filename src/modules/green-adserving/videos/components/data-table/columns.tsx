@@ -14,7 +14,7 @@ import { DotsHorizontalIcon, Link1Icon } from '@radix-ui/react-icons';
 
 import { Button } from '@/components/ui/button';
 import { VideoInterface } from '../../interfaces/video.interface';
-import { formatNumber } from '@/shared/helpers/format-number';
+//import { formatNumber } from '@/shared/helpers/format-number';
 
 export const columns: ColumnDef<VideoInterface>[] = [
   {
@@ -34,20 +34,30 @@ export const columns: ColumnDef<VideoInterface>[] = [
     },
   },
   {
-    accessorKey: 'creative',
+    accessorKey: 'creativeURL',
     header: () => 'Creativo',
-    cell: () => {
-      return <Link1Icon className="h-5 w-5  mx-auto" />;
+    cell: ({ row }) => {
+      const creative = row.getValue('creativeURL') as string;
+      return (
+        <a href={creative} target="_blank">
+          <Link1Icon className="h-5 w-5  mx-auto" />
+        </a>
+      );
     },
   },
   {
-    accessorKey: 'vast',
+    accessorKey: 'vastURL',
     header: () => 'Archivo VAST',
-    cell: () => {
-      return <Link1Icon className="h-5 w-5  mx-auto" />;
+    cell: ({ row }) => {
+      const vastURL = row.getValue('vastURL') as string;
+      return (
+        <a href={vastURL} target="_blank">
+          <Link1Icon className="h-5 w-5  mx-auto" />
+        </a>
+      );
     },
   },
-  {
+  /*  {
     accessorKey: 'reproductions',
     header: () => '# reproducciones',
     cell: ({ row }) => {
@@ -58,28 +68,20 @@ export const columns: ColumnDef<VideoInterface>[] = [
         </div>
       );
     },
-  },
+  }, */
   {
     accessorKey: 'dataTransfer',
     header: () => '# transferidos',
-    cell: ({ row }) => {
-      const dataTransfer = row.getValue('dataTransfer') as string;
-      return (
-        <div className="text-center font-robotoFlex font-light">
-          {formatNumber(+dataTransfer)}Kg
-        </div>
-      );
+    cell: () => {
+      return '';
     },
   },
   {
     accessorKey: 'emissions',
     header: () => 'Emisiones CO2',
-    cell: ({ row }) => {
-      const emissions = row.getValue('emissions') as string;
+    cell: () => {
       return (
-        <div className="text-center  font-robotoFlex font-light">
-          {formatNumber(+emissions)}Kg
-        </div>
+        <div className="text-center  font-robotoFlex font-light">{''}</div>
       );
     },
   },

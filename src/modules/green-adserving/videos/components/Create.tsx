@@ -338,7 +338,7 @@ export const CreateVideo = () => {
               )}
             />
           </div>
-          <div className="w-1/4">
+          {/*  <div className="w-1/4">
             <FormField
               control={form.control}
               name="vendor"
@@ -351,7 +351,7 @@ export const CreateVideo = () => {
                 </FormItem>
               )}
             />
-          </div>
+          </div> */}
           <div className="w-1/4"></div>
           <div className="w-1/4"></div>
         </div>

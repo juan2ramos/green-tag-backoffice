@@ -10,6 +10,7 @@ import { useQuery } from '@tanstack/react-query';
 import { useState } from 'react';
 import { getBonus } from '../services/bonus';
 import type { Bonus } from '../interfaces/types';
+import { toast } from 'sonner';
 interface CompensationFormProps {
   selectedRows: unknown[];
 }
@@ -24,6 +25,15 @@ export const CompensationForm = ({ selectedRows }: CompensationFormProps) => {
   };
   const handleCompensate = () => {
     console.log(selectedRows);
+    toast.success(`¡Proceso ha iniciado con éxito!`, {
+      position: 'top-right',
+      description: `Espere unos minutos mientras se realiza el proceso de compensación.`,
+      duration: 10000,
+      action: {
+        label: 'Cerrar',
+        onClick: () => console.log('Undo'),
+      },
+    });
   };
 
   return (

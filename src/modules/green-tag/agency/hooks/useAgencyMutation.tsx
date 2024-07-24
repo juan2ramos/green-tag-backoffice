@@ -24,7 +24,7 @@ export const useAgencyMutation = () => {
 
     onSuccess: (agency, variables, context) => {
       console.log({ agency, variables, context });
-      queryClient.removeQueries({ queryKey: ['agencies'] });
+      queryClient.invalidateQueries({ queryKey: ['agencies'] });
       queryClient.setQueryData<Agency[]>(['agency'], (old) => {
         if (!old) return [agency];
         return old.map((cacheAgency) =>

@@ -18,10 +18,10 @@ import { z } from 'zod';
 import { type FormDataSchema, formSchema } from '../../interfaces/schema-form';
 import { ArrowRightIcon } from '@radix-ui/react-icons';
 import useTransformData from '../../hooks/useTransformData';
-//import { useAgencyMutation } from '../hooks/useAgencyMutation';
+import { useAgencyMutation } from '../../hooks/useAgencyMutation';
 
 export const FormCreate = () => {
-  //const agencyMutation = useAgencyMutation();
+  const agencyMutation = useAgencyMutation();
   const { transformData } = useTransformData();
   const form = useForm<FormDataSchema>({
     resolver: zodResolver(formSchema),
@@ -36,10 +36,15 @@ export const FormCreate = () => {
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log({ values });
     const transformedData = transformData(values);
-    console.log(transformedData);
-    // agencyMutation.mutate(values);
+    const data = {
+      compensationStrategies: transformedData.compensationStrategies,
+      name: transformedData.name,
+      active: transformedData.active,
+    };
+
+    agencyMutation.mutate(data);
+    form.reset();
   }
 
   return (

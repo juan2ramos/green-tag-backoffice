@@ -1,4 +1,4 @@
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { Nav } from '../../shared/components/menus/Nav';
 import Logo from '../../assets/Logo-Green-Tag.svg';
 import { NavSecondary } from '../../shared/components/menus/NavSecondary';
@@ -14,14 +14,14 @@ interface Props {
 export const ContentDefaultLayout = ({ isLoading }: Props) => {
   const user = useAuthStore((state) => state.user);
   const logout = useAuthStore((state) => state.logoutUser);
-
+  const navigate = useNavigate();
   return (
     <div className="flex">
       <PageTitle titleMap={routes} />
       <div className="w-full min-h-screen px-10 pb-10  m-auto max-w-[1440px]">
         <header className="py-5">
           <div className="flex justify-between items-center ">
-            <figure>
+            <figure onClick={() => navigate('/')} className=" cursor-pointer">
               {<img width="180px" src={Logo} alt="Logo Green Tag" />}
             </figure>
             <div className="flex gap-10 items-center">

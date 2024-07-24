@@ -7,9 +7,9 @@ export const routes = [
       { to: '/green-tag/agencies', text: 'Agencias' },
       { to: '/green-tag/advertisers', text: 'Anunciantes' },
       { to: '/green-tag/compensation', text: 'Compensar' },
-      { to: '/green-tag/bonos', text: 'Bonos' },
       { to: '/green-tag/report', text: 'Reportes' },
-      { to: '/green-tag/users', text: 'Usuarios' },
+      { to: '/green-tag/bonos', text: 'Bonos' },
+      /*  { to: '/green-tag/users', text: 'Usuarios' }, */
     ],
   },
   {

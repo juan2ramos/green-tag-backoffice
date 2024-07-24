@@ -36,21 +36,23 @@ export const columns: ColumnDef<CampaignInterface>[] = [
     accessorKey: 'creative',
     header: () => 'Creativo',
     cell: () => {
-      return <Link1Icon className="h-5 w-5  mx-auto" />;
+      return (
+        <a href="https://ads.green-tag.io/MX_PETS_MARS_JUN_2024/MX_PETS_MARS_JUN_2024_ACP_RIC_300X250_V1/index.html">
+          {' '}
+          <Link1Icon className="h-5 w-5  mx-auto" />
+        </a>
+      );
     },
   },
   {
     accessorKey: 'vast',
     header: () => 'Archivo VAST',
     cell: () => {
-      return <Link1Icon className="h-5 w-5  mx-auto" />;
-    },
-  },
-  {
-    accessorKey: 'report',
-    header: () => 'Reporte de sitios',
-    cell: () => {
-      return <Link1Icon className="h-5 w-5  mx-auto" />;
+      return (
+        <a href="https://srv-vast.thankstoyou.co/COL_DOLEX_FORTE_HALEON_JUN_2024_GREEN_ADS_VID_1920_1080.xml">
+          <Link1Icon className="h-5 w-5  mx-auto" />
+        </a>
+      );
     },
   },
 

@@ -2,7 +2,6 @@ const useTransformData = () => {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const transformData = (data: any) => {
     const { compensationStrategies, ...rest } = data;
-    console.log(Object.keys(compensationStrategies || {}));
 
     const transformedCompensationStrategies = Object.keys(
       compensationStrategies || {},
@@ -15,12 +14,6 @@ const useTransformData = () => {
         };
       });
 
-    const newTransformedData = {
-      ...rest,
-      compensationStrategies: transformedCompensationStrategies,
-    };
-
-    console.log({ newTransformedData });
     return {
       ...rest,
       compensationStrategies: transformedCompensationStrategies,

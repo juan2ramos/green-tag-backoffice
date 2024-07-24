@@ -2,8 +2,8 @@ import { z } from 'zod';
 const additionalDataEquativSchema = z.object({
   username: z.string().min(1, 'El nombre de usuario es requerido'),
   password: z.string().min(4, 'La contraseña es requerida'),
-  clientId: z.string().min(1, 'El ID del cliente es requerido'),
-  clientSecret: z.string().min(1, 'El secreto del cliente es requerido'),
+  client_id: z.string().min(1, 'El ID del cliente es requerido'),
+  client_secret: z.string().min(1, 'El secreto del cliente es requerido'),
 });
 
 const additionalDataXandrSchema = z.object({

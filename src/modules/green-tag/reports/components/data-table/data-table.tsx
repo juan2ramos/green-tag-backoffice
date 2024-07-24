@@ -5,7 +5,13 @@ import {
   useReactTable,
   getPaginationRowModel,
 } from '@tanstack/react-table';
-
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
 import {
   Table,
   TableBody,
@@ -14,13 +20,6 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 
 interface DataTableProps<TData, TValue> {
@@ -92,8 +91,10 @@ export function DataTable<TData, TValue>({
       </Table>
       <div className="flex justify-between items-center pt-4">
         <div className="flex-1 text-sm text-muted-foreground">
-          {table.getFilteredSelectedRowModel().rows.length} de{' '}
-          {table.getFilteredRowModel().rows.length} fila(s) seleccionadas.
+          Total de Registros:{' '}
+          <span className="font-robotoFlex">
+            {table.getFilteredRowModel().rows.length}
+          </span>
         </div>
         <div className="flex gap-2 items-center">
           <Select

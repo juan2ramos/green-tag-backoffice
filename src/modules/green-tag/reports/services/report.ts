@@ -1,21 +1,6 @@
-const url = import.meta.env.VITE_API_URL;
+import { greenTagApi } from '@/api/green-tag-api';
 
-export const getReport = async (dates: IDates, strategyId: string) => {
-  const { startDate, endDate } = dates;
-  try {
-    const resp = await fetch(
-      `${url}campaign/report/${strategyId}?startDate=${startDate}&endDate=${endDate}`,
-    );
-    if (!resp.ok) throw new Error('Failed to fetch group-creative.');
-    const json = await resp.json();
-    return json?.payload;
-  } catch (error: Error | unknown) {
-    console.error('Error fetching group-creative', error);
-    throw new Error((error as Error).message);
-  }
+export const getCompensations = async () => {
+  const { data } = await greenTagApi('compensation/with-compensation');
+  return data?.payload;
 };
-
-interface IDates {
-  startDate: string;
-  endDate: string;
-}

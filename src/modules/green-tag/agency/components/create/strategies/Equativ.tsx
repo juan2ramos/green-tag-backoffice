@@ -61,7 +61,7 @@ export const Equativ = ({ control }: Props) => {
       />
       <FormField
         control={control}
-        name="compensationStrategies.Equativ.additionalData.clientId"
+        name="compensationStrategies.Equativ.additionalData.client_id"
         defaultValue=""
         render={({ field }) => (
           <FormItem>
@@ -74,7 +74,7 @@ export const Equativ = ({ control }: Props) => {
       />
       <FormField
         control={control}
-        name="compensationStrategies.Equativ.additionalData.clientSecret"
+        name="compensationStrategies.Equativ.additionalData.client_secret"
         defaultValue=""
         render={({ field }) => (
           <FormItem>

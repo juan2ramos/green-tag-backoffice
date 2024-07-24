@@ -55,13 +55,15 @@ export const SitePage = () => {
           <h2 className="pb-2">Listado de sitios </h2>
           <hr />
           <div className="w-full flex justify-end mt-8 gap-2">
-            <Button
-              variant={'create'}
-              className="text-[12px] w-48 bg-[#D8EAF7] text-[#4D6D98]"
-            >
-              <UploadIcon className="w-4 h-4 mr-1" />
-              Cargar sitios CSV
-            </Button>
+            {
+              <Button
+                variant={'create'}
+                className="text-[12px] w-48 bg-[#D8EAF7] text-[#4D6D98]"
+              >
+                <UploadIcon className="w-4 h-4 mr-1" />
+                Cargar sitios CSV
+              </Button>
+            }
             <Button
               variant={'create'}
               className="text-[12px] w-48"
