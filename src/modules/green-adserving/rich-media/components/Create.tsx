@@ -52,8 +52,13 @@ export const CreateRichMedia = () => {
       ...data,
       additionalScripts: data.additionalScripts?.map((script) => script.text),
     };
-    mutation.mutate(richMediaData);
-    setFileInputKey(Date.now());
+
+    mutation.mutate(richMediaData, {
+      onSuccess: () => {
+        form.reset();
+        setFileInputKey(Date.now());
+      },
+    });
   }
   return (
     <Form {...form}>

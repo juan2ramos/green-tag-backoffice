@@ -5,6 +5,10 @@ export const getRichMedia = async () => {
 
   return data;
 };
+export const deleteRichMedia = async (id: number) => {
+  const { data } = await greenListApi.delete(`reach-media/${id}`);
+  return data;
+};
 export const createRichMedia = async (richMedia: RichMedia) => {
   const formData = new FormData();
 
@@ -15,6 +19,12 @@ export const createRichMedia = async (richMedia: RichMedia) => {
       if (!element) continue;
       if (Array.isArray(element) && element.length === 0) continue;
 
+      if (Array.isArray(element)) {
+        element.forEach((item, index) => {
+          formData.append(`additionalScripts[${index}]`, item);
+        });
+        continue;
+      }
       if (key === 'file') {
         formData.append(key, element as File);
         continue;

@@ -1,11 +1,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createVideo } from '../services/videos';
+import { deleteVideo } from '../services/videos';
 import { useState } from 'react';
-export const useCreateVideoMutation = () => {
+export const useDeleteVideoMutation = () => {
   const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(false);
   const mutation = useMutation({
-    mutationFn: createVideo,
+    mutationFn: deleteVideo,
     onMutate: () => {
       setIsLoading(true);
     },

@@ -15,6 +15,9 @@ export const useCreateRichMediaMutation = () => {
       });
       setIsLoading(false);
     },
+    onError: () => {
+      setIsLoading(false);
+    },
   });
 
   return { mutation, isLoading };

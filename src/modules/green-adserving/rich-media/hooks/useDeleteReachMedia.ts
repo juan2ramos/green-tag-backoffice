@@ -1,17 +1,17 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { createVideo } from '../services/videos';
+import { deleteRichMedia } from '../services/rich-media';
 import { useState } from 'react';
-export const useCreateVideoMutation = () => {
+export const useDeleteReachMediaMutation = () => {
   const queryClient = useQueryClient();
   const [isLoading, setIsLoading] = useState(false);
   const mutation = useMutation({
-    mutationFn: createVideo,
+    mutationFn: deleteRichMedia,
     onMutate: () => {
       setIsLoading(true);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: ['videos'],
+        queryKey: ['richMedia'],
       });
       setIsLoading(false);
     },

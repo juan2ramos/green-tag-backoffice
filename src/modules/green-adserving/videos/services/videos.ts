@@ -2,7 +2,10 @@ import { greenListApi } from '@/api/green-list-api';
 
 export const getVideos = async () => {
   const { data } = await greenListApi.get(`video`);
-
+  return data;
+};
+export const deleteVideo = async (id: number) => {
+  const { data } = await greenListApi.delete(`video/${id}`);
   return data;
 };
 

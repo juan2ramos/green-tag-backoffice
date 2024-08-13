@@ -73,7 +73,12 @@ export const CreateVideo = () => {
       additionalScripts: data.additionalScripts?.map((script) => script.text),
     };
 
-    mutation.mutate(videoData);
+    mutation.mutate(videoData, {
+      onSuccess: () => {
+        form.reset();
+        setFileInputKey(Date.now());
+      },
+    });
     setFileInputKey(Date.now());
   }
   return (

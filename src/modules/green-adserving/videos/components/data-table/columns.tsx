@@ -1,19 +1,9 @@
 import { ColumnDef } from '@tanstack/react-table';
 
-import {
-  DropdownMenu,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-
-import {
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-} from '@/components/ui/dropdown-menu';
-import { DotsHorizontalIcon, Link1Icon } from '@radix-ui/react-icons';
-
-import { Button } from '@/components/ui/button';
 import { VideoInterface } from '../../interfaces/video.interface';
+import ActionsCell from '../actions-cell';
+import { Link1Icon } from '@radix-ui/react-icons';
+
 //import { formatNumber } from '@/shared/helpers/format-number';
 
 export const columns: ColumnDef<VideoInterface>[] = [
@@ -88,25 +78,8 @@ export const columns: ColumnDef<VideoInterface>[] = [
     id: 'actions',
     accessorKey: 'actions',
     header: 'Acciones',
-    cell: () => {
-      return (
-        <div className="text-center">
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Open menu</span>
-                <DotsHorizontalIcon className="h-4 w-4" />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuLabel>Acciones</DropdownMenuLabel>
-              <DropdownMenuItem></DropdownMenuItem>
-
-              <DropdownMenuItem>Eliminar</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-        </div>
-      );
+    cell: ({ row }) => {
+      return <ActionsCell id={row.original.id} />;
     },
   },
 ];
