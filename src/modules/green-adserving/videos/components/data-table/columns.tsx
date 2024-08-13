@@ -18,26 +18,26 @@ import { VideoInterface } from '../../interfaces/video.interface';
 
 export const columns: ColumnDef<VideoInterface>[] = [
   {
-    accessorKey: 'name',
+    accessorKey: 'videoName',
     header: () => 'Video',
     cell: ({ row }) => {
-      const name = row.getValue('name') as string;
-      return <div className="text-center">{name}</div>;
+      const videoName = row.getValue('videoName') as string;
+      return <div className="text-center">{videoName}</div>;
     },
   },
   {
     accessorKey: 'campaign',
     header: () => 'Campaña',
     cell: ({ row }) => {
-      const campaign = row.getValue('campaign') as string;
+      const campaign = row.original.campaign.name;
       return <div className="text-center">{campaign}</div>;
     },
   },
   {
-    accessorKey: 'creativeURL',
+    accessorKey: 'videoUrl',
     header: () => 'Creativo',
     cell: ({ row }) => {
-      const creative = row.getValue('creativeURL') as string;
+      const creative = row.getValue('videoUrl') as string;
       return (
         <a href={creative} target="_blank">
           <Link1Icon className="h-5 w-5  mx-auto" />
@@ -46,10 +46,10 @@ export const columns: ColumnDef<VideoInterface>[] = [
     },
   },
   {
-    accessorKey: 'vastURL',
+    accessorKey: 'vastFileUrl',
     header: () => 'Archivo VAST',
     cell: ({ row }) => {
-      const vastURL = row.getValue('vastURL') as string;
+      const vastURL = row.getValue('vastFileUrl') as string;
       return (
         <a href={vastURL} target="_blank">
           <Link1Icon className="h-5 w-5  mx-auto" />

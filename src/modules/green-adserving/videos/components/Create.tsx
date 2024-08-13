@@ -5,7 +5,7 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form';
-import { useForm } from 'react-hook-form';
+import { useFieldArray, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Input } from '@/components/ui/input';
@@ -24,48 +24,62 @@ import { useQuery } from '@tanstack/react-query';
 
 import { CampaignInterface } from '@/modules/green-list/campaign/interfaces/campaign.interface';
 import { useState } from 'react';
+import { verifyList } from '@/shared/const/verificators.const';
+import { TrashIcon } from '@radix-ui/react-icons';
+
+import { useCreateVideoMutation } from '../hooks/useCreateVideo.ts';
 
 export const CreateVideo = () => {
   const [fileInputKey, setFileInputKey] = useState(Date.now());
+  const { mutation, isLoading: isLoadingCreateVideo } =
+    useCreateVideoMutation();
   const form = useForm<FormDataSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: '',
+      videoName: '',
       campaignId: '',
       file: undefined,
-      adTitle: '',
+      creativeTitle: '',
       description: '',
-      duration: '',
       clickThrough: '',
+
       clientPixel: '',
-      verifier: '',
-      extra: '',
+      verifierPixel: '',
+      extraPixel: '',
+
       startTracking: '',
       firstQuartileTracking: '',
       midpointTracking: '',
       thirdQuartileTracking: '',
       completeTracking: '',
-      vendor: '',
-      javaScriptResource: '',
+
+      scriptVerificationName: '',
+      scriptVerificationUrl: '',
+
+      additionalScripts: [],
     },
   });
   const { data: campaigns, isLoading } = useQuery({
     queryKey: ['campaigns'],
     queryFn: () => getCampaigns(),
   });
+  const { fields, append, remove } = useFieldArray({
+    name: `additionalScripts`,
+    control: form.control,
+  });
   function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data);
+    mutation.mutate(data);
     setFileInputKey(Date.now());
   }
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
-        <h4 className="mt-9">Datos básicos (requeridos)</h4>
-        <div className="w-full flex   mb-4  gap-3 ">
+        <h4 className="mt-9">Datos básicos(requeridos)</h4>
+        <div className="w-full flex mb-4  gap-3 ">
           <div className="w-1/4">
             <FormField
               control={form.control}
-              name="name"
+              name="videoName"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
@@ -119,7 +133,7 @@ export const CreateVideo = () => {
                     <>
                       <label
                         htmlFor="video-upload"
-                        className="text-center w-full border block  text-[12px] py-2 cursor-pointer border-dashed rounded-sm"
+                        className="text-center w-full border block text-[12px] py-2 cursor-pointer border-dashed rounded-sm overflow-hidden text-ellipsis whitespace-nowrap px-2"
                       >
                         {field.value ? (
                           <span className="text-gray-700">
@@ -152,7 +166,7 @@ export const CreateVideo = () => {
           <div className="w-1/4">
             <FormField
               control={form.control}
-              name="adTitle"
+              name="creativeTitle"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
@@ -165,7 +179,7 @@ export const CreateVideo = () => {
           </div>
         </div>
         <div className="w-full flex  mt-3 mb-4  gap-3 ">
-          <div className="w-[calc(50%+12px)] ">
+          <div className="w-[calc(50%-6px)] ">
             <FormField
               control={form.control}
               name="description"
@@ -179,24 +193,7 @@ export const CreateVideo = () => {
               )}
             />
           </div>
-          <div className="w-1/4">
-            <FormField
-              control={form.control}
-              name="duration"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input
-                      {...field}
-                      type="number"
-                      placeholder="Duración en segundos"
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div>
+
           <div className="w-1/4">
             <FormField
               control={form.control}
@@ -237,7 +234,7 @@ export const CreateVideo = () => {
           <div className="w-1/4">
             <FormField
               control={form.control}
-              name="verifier"
+              name="verifierPixel"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
@@ -251,7 +248,7 @@ export const CreateVideo = () => {
           <div className="w-1/4">
             <FormField
               control={form.control}
-              name="extra"
+              name="extraPixel"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
@@ -338,45 +335,106 @@ export const CreateVideo = () => {
               )}
             />
           </div>
-          {/*  <div className="w-1/4">
-            <FormField
-              control={form.control}
-              name="vendor"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input {...field} placeholder="Vendor" />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-          </div> */}
+
           <div className="w-1/4"></div>
           <div className="w-1/4"></div>
         </div>
-        <h4 className="mt-9">Scripts (opcionales)</h4>
-        <div className="w-full flex mb-4  gap-3 ">
-          <div className="w-full">
+        <h4 className="mt-9">Script del verificador (opcionales)</h4>
+        <div className="w-full flex pt-2 mb-4  gap-3 ">
+          <div className="w-1/4">
             <FormField
               control={form.control}
-              name="javaScriptResource"
+              name="scriptVerificationName"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input
-                      {...field}
-                      placeholder="JS del script enviado por el cliente"
-                    />
+                    <Select
+                      disabled={isLoading}
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      value={field.value}
+                    >
+                      <SelectTrigger className=" bg-[white]">
+                        <SelectValue placeholder="Seleccione un verificador " />
+                      </SelectTrigger>
+                      <SelectContent>
+                        {verifyList?.map((verify: { url: string }) => (
+                          <SelectItem key={verify.url} value={verify.url}>
+                            {verify.url}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
+
+          <div className="w-1/4">
+            <FormField
+              control={form.control}
+              name="scriptVerificationUrl"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input {...field} placeholder="Url del script" />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+          <div className="w-1/4"></div>
+        </div>
+        <h4 className="mt-9">Script adicionales (opcionales)</h4>
+        {fields.map((field, index) => (
+          <div className="w-full flex mb-4  gap-3 " key={field.id}>
+            <div className="w-full">
+              <FormField
+                control={form.control}
+                name={`additionalScripts.${index}.text`}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="JS del script enviado por el cliente"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <Button
+              variant={'outline'}
+              type="button"
+              onClick={() => remove(index)}
+            >
+              <TrashIcon className="w-4 h-4  text-[red]" />
+            </Button>
+          </div>
+        ))}
+
+        <div className="w-full flex justify-end">
+          <Button
+            variant={'outline'}
+            type="button"
+            onClick={() => append({ text: '' })}
+          >
+            <span>Agregar script</span>
+          </Button>
         </div>
         <div className="w-full mt-14 mb-4 flex justify-end">
-          <Button variant={'create'} className="w-1/4" type="submit">
+          <Button
+            variant={'create'}
+            className="w-1/4"
+            type="submit"
+            disabled={isLoadingCreateVideo}
+          >
             Crear video (VAST)
             <ArrowRightIcon className="w-4 h-4" />
           </Button>
