@@ -129,11 +129,13 @@ export const UpdateCampaign = ({ campaign }: UpdateCampaignProps) => {
         <Button
           variant={'create'}
           className="w-full bg-[#FFFFF3] text-[#B6B6B6] border border-[#DFE5EB] border-dashed text-[12px]"
-          disabled={campaign.campaignUrls.length > 0}
+          disabled={
+            !!(campaign.campaignUrls.length > 0 || campaign.efficiencyReport)
+          }
           onClick={() => setDialogOpen(true)}
         >
           <UploadIcon className="w-4 h-4 mr-2" />
-          {campaign.campaignUrls.length > 0
+          {campaign.campaignUrls.length > 0 || campaign.efficiencyReport
             ? 'Los sitios han sido cargados'
             : 'Cargar sitios (Planning)'}
         </Button>
@@ -148,6 +150,16 @@ export const UpdateCampaign = ({ campaign }: UpdateCampaignProps) => {
             : 'Cargar sitios (Reporting)'}
         </Button>
       </div>
+      {campaign.campaignUrls.length > 0 ||
+        (campaign.efficiencyReport && (
+          <div className="pt-6">
+            {' '}
+            <span className="font-semibold">Eficiencia Reporte: </span>
+            <span className=" font-robotoFlex text-[#00CA21] ">
+              {campaign.efficiencyReport}%
+            </span>
+          </div>
+        ))}
     </>
   );
 };

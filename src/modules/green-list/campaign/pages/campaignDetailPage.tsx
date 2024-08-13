@@ -21,6 +21,7 @@ export const CampaignDetailPage = () => {
     queryKey: ['campaign', id],
     queryFn: () => getCampaign(id ?? ''),
   });
+
   const [checkedState, setCheckedState] = useState({
     A: false,
     B: false,
@@ -37,7 +38,6 @@ export const CampaignDetailPage = () => {
 
   useEffect(() => {
     if (campaign && campaign.campaignUrls) {
-      console.log(campaign);
       const urls = campaign.campaignUrls.map((campaignUrl) => campaignUrl.url);
       setUrlList(urls);
     }
