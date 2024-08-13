@@ -51,5 +51,5 @@ interface Video {
   scriptVerificationName?: string;
   scriptVerificationUrl?: string;
 
-  additionalScripts?: [];
+  additionalScripts?: string[];
 }

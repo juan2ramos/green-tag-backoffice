@@ -28,7 +28,6 @@ export const routes = [
     children: [
       { to: '/green-adserving/videos', text: 'Videos' },
       { to: '/green-adserving/rich-media', text: 'Rich Media' },
-      { to: '/green-adserving/brand-lift', text: 'Brand Lift' },
     ],
   },
 ];

@@ -18,7 +18,7 @@ import { CampaignDetailPage } from '@/modules/green-list/campaign/pages/campaign
 import { SitePage } from '@/modules/green-list/site/pages/sitePage';
 import { VideoPage } from '@/modules/green-adserving/videos/pages/videoPage';
 import { RichMediaPage } from '@/modules/green-adserving/rich-media/pages/richMediaPage';
-import { BrandLiftPage } from '@/modules/green-adserving/brand-lift/pages/branLiftPage';
+
 //import ErrorPage from '../pages/ErrorPage';
 
 export const router = createBrowserRouter([
@@ -59,7 +59,6 @@ export const router = createBrowserRouter([
         children: [
           { path: 'videos', element: <VideoPage /> },
           { path: 'rich-media', element: <RichMediaPage /> },
-          { path: 'brand-lift', element: <BrandLiftPage /> },
         ],
       },
       {

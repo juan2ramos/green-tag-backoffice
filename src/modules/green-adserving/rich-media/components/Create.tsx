@@ -48,7 +48,11 @@ export const CreateRichMedia = () => {
     control: form.control,
   });
   function onSubmit(data: z.infer<typeof formSchema>) {
-    mutation.mutate(data);
+    const richMediaData = {
+      ...data,
+      additionalScripts: data.additionalScripts?.map((script) => script.text),
+    };
+    mutation.mutate(richMediaData);
     setFileInputKey(Date.now());
   }
   return (

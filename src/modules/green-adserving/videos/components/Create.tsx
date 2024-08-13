@@ -68,7 +68,12 @@ export const CreateVideo = () => {
     control: form.control,
   });
   function onSubmit(data: z.infer<typeof formSchema>) {
-    mutation.mutate(data);
+    const videoData = {
+      ...data,
+      additionalScripts: data.additionalScripts?.map((script) => script.text),
+    };
+
+    mutation.mutate(videoData);
     setFileInputKey(Date.now());
   }
   return (

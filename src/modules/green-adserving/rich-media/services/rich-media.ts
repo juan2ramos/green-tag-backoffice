@@ -33,5 +33,5 @@ interface RichMedia {
   richMediaName: string;
   campaignId: string;
   file: File;
-  additionalScripts?: [];
+  additionalScripts?: string[];
 }
