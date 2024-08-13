@@ -5,7 +5,7 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form';
-import { useForm } from 'react-hook-form';
+import { useFieldArray, useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Input } from '@/components/ui/input';
@@ -17,40 +17,48 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import { ArrowRightIcon } from '@radix-ui/react-icons';
+import { ArrowRightIcon, TrashIcon } from '@radix-ui/react-icons';
 import { FormDataSchema, formSchema } from '../interfaces/schema-form';
 import { getCampaigns } from '@/modules/green-list/campaign/services/campaigns';
 import { useQuery } from '@tanstack/react-query';
 
 import { CampaignInterface } from '@/modules/green-list/campaign/interfaces/campaign.interface';
 import { useState } from 'react';
+import { useCreateRichMediaMutation } from '../hooks/useCreateReachMedia';
 
 export const CreateRichMedia = () => {
+  const { mutation, isLoading: isLoadingCreateVideo } =
+    useCreateRichMediaMutation();
   const [fileInputKey, setFileInputKey] = useState(Date.now());
   const form = useForm<FormDataSchema>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: '',
+      richMediaName: '',
       campaignId: '',
       file: undefined,
+      additionalScripts: [],
     },
   });
   const { data: campaigns, isLoading } = useQuery({
     queryKey: ['campaigns'],
     queryFn: () => getCampaigns(),
   });
+  const { fields, append, remove } = useFieldArray({
+    name: `additionalScripts`,
+    control: form.control,
+  });
   function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data);
+    mutation.mutate(data);
     setFileInputKey(Date.now());
   }
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
         <div className="w-full flex  mt-9  gap-3 ">
-          <div className="w-1/4">
+          <div className="w-1/3">
             <FormField
               control={form.control}
-              name="name"
+              name="richMediaName"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
@@ -61,7 +69,7 @@ export const CreateRichMedia = () => {
               )}
             />
           </div>
-          <div className="w-1/4">
+          <div className="w-1/3">
             <FormField
               control={form.control}
               name="campaignId"
@@ -94,7 +102,7 @@ export const CreateRichMedia = () => {
               )}
             />
           </div>
-          <div className="w-1/4">
+          <div className="w-1/3">
             <FormField
               control={form.control}
               name="file"
@@ -134,12 +142,57 @@ export const CreateRichMedia = () => {
               )}
             />
           </div>
-          <div className="w-1/4">
-            <Button variant={'create'} className="w-full" type="submit">
-              Crear video (VAST)
-              <ArrowRightIcon className="w-4 h-4" />
+        </div>
+        <h4 className="mt-9">Script adicionales (opcionales)</h4>
+        {fields.map((field, index) => (
+          <div className="w-full flex mb-4  gap-3 " key={field.id}>
+            <div className="w-full">
+              <FormField
+                control={form.control}
+                name={`additionalScripts.${index}.text`}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input
+                        {...field}
+                        placeholder="JS del script enviado por el cliente"
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
+            <Button
+              variant={'outline'}
+              type="button"
+              onClick={() => remove(index)}
+            >
+              <TrashIcon className="w-4 h-4  text-[red]" />
             </Button>
           </div>
+        ))}
+
+        <div className="w-full flex justify-end">
+          <Button
+            variant={'outline'}
+            type="button"
+            onClick={() => append({ text: '' })}
+          >
+            <span>Agregar script</span>
+          </Button>
+        </div>
+        <div className="w-full flex justify-end mt-14 mb-4 ">
+          <Button
+            variant={'create'}
+            className="w-1/4"
+            type="submit"
+            disabled={isLoadingCreateVideo}
+          >
+            Crear rich media
+            <ArrowRightIcon className="w-4 h-4" />
+          </Button>
         </div>
       </form>
     </Form>

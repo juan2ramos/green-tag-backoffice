@@ -29,8 +29,7 @@ export const columns: ColumnDef<VideoInterface>[] = [
     accessorKey: 'campaign',
     header: () => 'Campaña',
     cell: ({ row }) => {
-      const campaign = row.original.campaign.name;
-      return <div className="text-center">{campaign}</div>;
+      return <div className="text-center">{row.original.campaign.name}</div>;
     },
   },
   {

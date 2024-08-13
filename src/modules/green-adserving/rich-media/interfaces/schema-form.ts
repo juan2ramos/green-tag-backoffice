@@ -8,9 +8,16 @@ const zipRequired = () =>
     });
 
 export const formSchema = z.object({
-  name: z.string().min(1, 'El nombre del video es requerido'),
+  richMediaName: z.string().min(1, 'El nombre del video es requerido'),
   campaignId: z.string().min(1, 'La campaña es requerida'),
   file: zipRequired(),
+  additionalScripts: z
+    .array(
+      z.object({
+        text: z.string().min(1, 'El texto es requerido'),
+      }),
+    )
+    .optional(),
 });
 
 export type FormDataSchema = z.infer<typeof formSchema>;

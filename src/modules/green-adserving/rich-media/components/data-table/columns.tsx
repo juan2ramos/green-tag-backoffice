@@ -20,10 +20,10 @@ import { ScriptDialog } from '../ScriptDialog';
 
 export const columns: ColumnDef<RichMediaInterface>[] = [
   {
-    accessorKey: 'name',
+    accessorKey: 'richMediaName',
     header: () => 'Nombre Rich Media',
     cell: ({ row }) => {
-      const name = row.getValue('name') as string;
+      const name = row.getValue('richMediaName') as string;
       return <div className="text-center">{name}</div>;
     },
   },
@@ -31,8 +31,7 @@ export const columns: ColumnDef<RichMediaInterface>[] = [
     accessorKey: 'campaign',
     header: () => 'Campaña',
     cell: ({ row }) => {
-      const campaign = row.getValue('campaign') as string;
-      return <div className="text-center">{campaign}</div>;
+      return <div className="text-center">{row.original.campaign.name}</div>;
     },
   },
   {

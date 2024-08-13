@@ -2,7 +2,7 @@ import { greenListApi } from '@/api/green-list-api';
 
 export const getVideos = async () => {
   const { data } = await greenListApi.get(`video`);
-  console.log(data);
+
   return data;
 };
 
@@ -28,7 +28,7 @@ export const createVideo = async (video: Video) => {
   const { data } = await greenListApi.post('video', formData, {
     headers,
   });
-  return data?.payload;
+  return data;
 };
 interface Video {
   videoName: string;

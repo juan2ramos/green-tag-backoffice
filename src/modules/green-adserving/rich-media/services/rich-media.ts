@@ -1,10 +1,37 @@
+import { greenListApi } from '@/api/green-list-api';
+
 export const getRichMedia = async () => {
-  return [
-    {
-      id: 1,
-      name: 'Rich Media 1',
-      campaign: 'COL_DOLEX_FORTE_HALEON_JUN_2024_GREEN_ADS_VID',
-      script: 'Script 1',
-    },
-  ];
+  const { data } = await greenListApi.get(`reach-media`);
+
+  return data;
 };
+export const createRichMedia = async (richMedia: RichMedia) => {
+  const formData = new FormData();
+
+  for (const key in richMedia) {
+    if (Object.prototype.hasOwnProperty.call(richMedia, key)) {
+      const element = richMedia[key as keyof RichMedia];
+
+      if (!element) continue;
+      if (Array.isArray(element) && element.length === 0) continue;
+
+      if (key === 'file') {
+        formData.append(key, element as File);
+        continue;
+      }
+      formData.append(key, element ? element.toString() : '');
+    }
+  }
+
+  const headers = { 'Content-Type': 'multipart/form-data' };
+  const { data } = await greenListApi.post('reach-media', formData, {
+    headers,
+  });
+  return data;
+};
+interface RichMedia {
+  richMediaName: string;
+  campaignId: string;
+  file: File;
+  additionalScripts?: [];
+}

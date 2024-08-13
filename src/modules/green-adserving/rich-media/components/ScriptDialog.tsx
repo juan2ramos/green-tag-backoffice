@@ -27,7 +27,7 @@ export const ScriptDialog = ({ richMediaData }: CheckboxCellProps) => {
       s3AdLoader.push(function () {
         s3AdTag({
           tagId: "ad-container",
-          adUrl: "https://ads.green-tag.io/mision-guajira/index.html"
+          adUrl: "${richMediaData.original.url}",
         });
       });
     </script>`;
@@ -42,7 +42,9 @@ export const ScriptDialog = ({ richMediaData }: CheckboxCellProps) => {
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
         <DialogContent className="max-w-5xl">
           <DialogHeader className="font-[700] text-[16px] text-center">
-            <DialogTitle>Script {richMediaData.getValue('name')}</DialogTitle>
+            <DialogTitle>
+              Script {richMediaData.getValue('richMediaName')}
+            </DialogTitle>
             <hr />
           </DialogHeader>
           <DialogDescription> </DialogDescription>

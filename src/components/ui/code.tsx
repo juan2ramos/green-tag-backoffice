@@ -19,7 +19,7 @@ const copyToClipboard = (code: string) => {
   });
 };
 export const CodeBasic: React.FC<CodeBasicProps> = ({ codeBlock }) => (
-  <div className="relative">
+  <div className="relative overflow-hidden">
     <Highlight theme={themes.vsDark} code={codeBlock} language="javascript">
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
         <pre
