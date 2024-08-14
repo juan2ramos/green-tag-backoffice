@@ -2,10 +2,21 @@ import { ColumnDef } from '@tanstack/react-table';
 
 import { VideoInterface } from '../../interfaces/video.interface';
 import ActionsCell from '../actions-cell';
-import { Link1Icon } from '@radix-ui/react-icons';
-
+import { CopyIcon, Link1Icon } from '@radix-ui/react-icons';
+import { toast } from 'sonner';
 //import { formatNumber } from '@/shared/helpers/format-number';
-
+const copyToClipboard = (code: string) => {
+  navigator.clipboard.writeText(code).then(() => {
+    toast.info('Link copiado', {
+      position: 'top-right',
+      duration: 10000,
+      action: {
+        label: 'Cerrar',
+        onClick: () => console.log('Undo'),
+      },
+    });
+  });
+};
 export const columns: ColumnDef<VideoInterface>[] = [
   {
     accessorKey: 'videoName',
@@ -36,13 +47,13 @@ export const columns: ColumnDef<VideoInterface>[] = [
   },
   {
     accessorKey: 'vastFileUrl',
-    header: () => 'Archivo VAST',
+    header: () => 'Link VAST',
     cell: ({ row }) => {
       const vastURL = row.getValue('vastFileUrl') as string;
       return (
-        <a href={vastURL} target="_blank">
-          <Link1Icon className="h-5 w-5  mx-auto" />
-        </a>
+        <button onClick={() => copyToClipboard(vastURL)}>
+          <CopyIcon className="h-5 w-5 mx-auto" />
+        </button>
       );
     },
   },
