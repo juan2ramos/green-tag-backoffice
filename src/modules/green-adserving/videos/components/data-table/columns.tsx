@@ -51,8 +51,11 @@ export const columns: ColumnDef<VideoInterface>[] = [
     cell: ({ row }) => {
       const vastURL = row.getValue('vastFileUrl') as string;
       return (
-        <button onClick={() => copyToClipboard(vastURL)}>
-          <CopyIcon className="h-5 w-5 mx-auto" />
+        <button
+          className="mx-auto block"
+          onClick={() => copyToClipboard(vastURL)}
+        >
+          <CopyIcon className="h-5 w-5 " />
         </button>
       );
     },

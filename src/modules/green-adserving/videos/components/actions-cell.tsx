@@ -19,17 +19,23 @@ import {
 import { useDeleteVideoMutation } from '../hooks/useDeleteVideo';
 
 const ActionsCell = ({ id }: { id: number }) => {
-  const [open, setOpen] = useState(false);
+  const [openDialog, setOpenDialog] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(false);
   const { mutation, isLoading: isLoadingDeleteVideo } =
     useDeleteVideoMutation();
   const handleDelete = () => {
     mutation.mutate(id);
-    setOpen(false);
+    setOpenDialog(false);
+  };
+
+  const handleOpenDialog = () => {
+    setOpenDropdown(false); // Cerrar el DropdownMenu si está abierto
+    setOpenDialog(true);
   };
 
   return (
     <div className="text-center">
-      <DropdownMenu>
+      <DropdownMenu open={openDropdown} onOpenChange={setOpenDropdown}>
         <DropdownMenuTrigger asChild>
           <Button variant="ghost" className="h-8 w-8 p-0">
             <span className="sr-only">Open menu</span>
@@ -38,13 +44,13 @@ const ActionsCell = ({ id }: { id: number }) => {
         </DropdownMenuTrigger>
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Acciones</DropdownMenuLabel>
-          <DropdownMenuItem onSelect={() => setOpen(true)}>
+          <DropdownMenuItem onSelect={handleOpenDialog}>
             Eliminar
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <Dialog open={open} onOpenChange={setOpen}>
+      <Dialog open={openDialog} onOpenChange={setOpenDialog}>
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Confirmar eliminación</DialogTitle>
@@ -56,7 +62,7 @@ const ActionsCell = ({ id }: { id: number }) => {
             <Button
               disabled={isLoadingDeleteVideo}
               variant="outline"
-              onClick={() => setOpen(false)}
+              onClick={() => setOpenDialog(false)}
             >
               Cancelar
             </Button>
