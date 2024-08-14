@@ -63,11 +63,10 @@ export const CampaignDetailPage = () => {
       return;
     }
 
-    const headers = Object.keys(selectedRows[0]).filter(
-      (key) => key !== 'insight' && key !== 'id',
-    );
+    const headers = ['url', 'category'];
+
     const csvRows = [
-      headers.join(','),
+      headers.join(','), // Añade las cabeceras
       ...selectedRows.map((row) =>
         headers.map((header) => row[header as keyof SitesInterface]).join(','),
       ),
@@ -78,7 +77,7 @@ export const CampaignDetailPage = () => {
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
     link.href = url;
-    link.setAttribute('download', 'selected_rows.csv');
+    link.setAttribute('download', 'planning-urls.csv');
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
