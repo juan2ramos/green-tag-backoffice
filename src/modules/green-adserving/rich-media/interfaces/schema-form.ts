@@ -3,6 +3,10 @@ import { z } from 'zod';
 const zipRequired = () =>
   z
     .instanceof(File, { message: 'El archivo es requerido' })
+    .refine(
+      (file) => file?.size <= 4 * 1024 * 1024,
+      'El archivo no debe pesar más de 4MB',
+    )
     .refine((file) => file.type === 'application/zip', {
       message: 'El archivo debe ser un ZIP',
     });
