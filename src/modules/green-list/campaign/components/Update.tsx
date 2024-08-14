@@ -17,7 +17,11 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import { ArrowRightIcon, UploadIcon } from '@radix-ui/react-icons';
+import {
+  ArrowRightIcon,
+  DownloadIcon,
+  UploadIcon,
+} from '@radix-ui/react-icons';
 import { FormDataSchema, formSchema } from '../interfaces/schema-form';
 import { useQuery } from '@tanstack/react-query';
 import { getClients } from '../../client/services/clients';
@@ -126,29 +130,53 @@ export const UpdateCampaign = ({ campaign }: UpdateCampaignProps) => {
         </form>
       </Form>
       <div className="flex gap-3 pt-3">
-        <Button
-          variant={'create'}
-          className="w-full bg-[#FFFFF3] text-[#B6B6B6] border border-[#DFE5EB] border-dashed text-[12px]"
-          disabled={
-            !!(campaign.campaignUrls.length > 0 || campaign.efficiencyReport)
-          }
-          onClick={() => setDialogOpen(true)}
-        >
-          <UploadIcon className="w-4 h-4 mr-2" />
-          {campaign.campaignUrls.length > 0 || campaign.efficiencyReport
-            ? 'Los sitios han sido cargados'
-            : 'Cargar sitios (Planning)'}
-        </Button>
-        <Button
-          variant={'create'}
-          className="w-full bg-[#F9FCFF] text-[#B6B6B6] border border-[#DFE5EB] border-dashed text-[12px]"
-          onClick={() => setDialogOpenReporting(true)}
-        >
-          <UploadIcon className="w-4 h-4 mr-2" />
-          {campaign.efficiencyReport
-            ? 'El reporte ha sido generado'
-            : 'Cargar sitios (Reporting)'}
-        </Button>
+        <div className="w-full">
+          <Button
+            variant={'create'}
+            className="w-full bg-[#FFFFF3] text-[#B6B6B6] border border-[#DFE5EB] border-dashed text-[12px]"
+            disabled={
+              !!(campaign.campaignUrls.length > 0 || campaign.efficiencyReport)
+            }
+            onClick={() => setDialogOpen(true)}
+          >
+            <UploadIcon className="w-4 h-4 mr-2" />
+            {campaign.campaignUrls.length > 0 || campaign.efficiencyReport
+              ? 'Los sitios han sido cargados'
+              : 'Cargar sitios (Planning)'}
+          </Button>
+          <div className="mt-2 flex items-center">
+            <a
+              href="https://ads.green-tag.io/examples/planning.csv"
+              target="_blank"
+              className=" text-greenTTY-dark"
+            >
+              Descarga la plantilla de planning
+            </a>
+            <DownloadIcon className="ml-1" />
+          </div>
+        </div>
+        <div className="w-full">
+          <Button
+            variant={'create'}
+            className="w-full bg-[#F9FCFF] text-[#B6B6B6] border border-[#DFE5EB] border-dashed text-[12px]"
+            onClick={() => setDialogOpenReporting(true)}
+          >
+            <UploadIcon className="w-4 h-4 mr-2" />
+            {campaign.efficiencyReport
+              ? 'El reporte ha sido generado'
+              : 'Cargar sitios (Reporting)'}
+          </Button>
+          <div className="mt-2 flex items-center">
+            <a
+              href="https://ads.green-tag.io/examples/reporting.csv"
+              target="_blank"
+              className=" text-greenTTY-dark"
+            >
+              Descarga la plantilla de reporting
+            </a>
+            <DownloadIcon className="ml-1" />
+          </div>
+        </div>
       </div>
       {campaign.campaignUrls.length > 0 ||
         (campaign.efficiencyReport && (
