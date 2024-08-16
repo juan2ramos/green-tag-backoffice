@@ -3,6 +3,7 @@ export interface RichMediaInterface {
   name: string;
   campaign: Campaign;
   url: string;
+  additionalScripts: string[] | null;
 }
 
 interface Campaign {

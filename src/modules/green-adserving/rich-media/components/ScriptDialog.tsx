@@ -19,6 +19,8 @@ interface CheckboxCellProps {
 
 export const ScriptDialog = ({ richMediaData }: CheckboxCellProps) => {
   const [dialogOpen, setDialogOpen] = useState(false);
+  const trackUrls = richMediaData.original.additionalScripts || [];
+
   const codeString = `<script type="application/javascript"   src="https://ads.green-tag.io/adscript.min.js"  async  >
 </script>
     <div id="ad-container"></div>
@@ -28,6 +30,7 @@ export const ScriptDialog = ({ richMediaData }: CheckboxCellProps) => {
         s3AdTag({
           tagId: "ad-container",
           adUrl: "${richMediaData.original.url}",
+          trackUrls: ${JSON.stringify(trackUrls)}
         });
       });
     </script>`;
