@@ -18,7 +18,12 @@ export const createVideo = async (video: Video) => {
 
       if (!element) continue;
       if (Array.isArray(element) && element.length === 0) continue;
-
+      if (Array.isArray(element)) {
+        element.forEach((item, index) => {
+          formData.append(`additionalScripts[${index}]`, item);
+        });
+        continue;
+      }
       if (key === 'file') {
         formData.append(key, element as File);
         continue;

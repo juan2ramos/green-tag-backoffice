@@ -6,28 +6,49 @@ import { UpdateCampaign } from '../components/Update';
 import { getColumns } from '../components/data-table-urls/columns';
 import { Button } from '@/components/ui/button';
 import { DownloadIcon } from '@radix-ui/react-icons';
-import { useEffect, useState } from 'react';
-import { URLInterface } from '../interfaces/campaign.interface';
+import { useEffect, useMemo, useState } from 'react';
+import {
+  CampaignInterface,
+  CampaignUrlsInterface,
+  URLInterface,
+} from '../interfaces/campaign.interface';
 import { DataTable } from '../components/data-table-urls/data-table';
 import { Efficiency } from '../components/Efficiency';
 import { Input } from '@/components/ui/input';
 import { SitesInterface } from '../../site/interfaces/sites.interface';
+import { getSites } from '../../site/services/sites';
 
 export const CampaignDetailPage = () => {
-  const [urlsList, setUrlList] = useState<URLInterface[]>([]);
   const [globalFilter, setGlobalFilter] = useState('');
   const { id } = useParams();
   const { data: campaign, isLoading } = useQuery({
     queryKey: ['campaign', id],
     queryFn: () => getCampaign(id ?? ''),
   });
+  const { data: allUrls, isLoading: isLoadingUrls } = useQuery({
+    queryKey: ['allUrls'],
+    queryFn: () => getSites({}),
+    enabled:
+      !!campaign &&
+      !campaign.campaignUrls.length &&
+      !!campaign.efficiencyReport,
+  });
+  const normalizedData = useMemo(() => {
+    console.log('normalizedData', allUrls);
 
+    return campaign && campaign.campaignUrls.length
+      ? normalizeData(campaign, 'campaign')
+      : allUrls
+      ? normalizeData(allUrls, 'allUrls')
+      : [];
+  }, [campaign, allUrls]);
   const [checkedState, setCheckedState] = useState({
     A: false,
     B: false,
     C: false,
     D: false,
   });
+
   const columns = getColumns();
   const handleCategoryChange = (category: string, isChecked: boolean) => {
     setCheckedState((prev) => ({
@@ -35,13 +56,6 @@ export const CampaignDetailPage = () => {
       [category]: isChecked,
     }));
   };
-
-  useEffect(() => {
-    if (campaign && campaign.campaignUrls) {
-      const urls = campaign.campaignUrls.map((campaignUrl) => campaignUrl.url);
-      setUrlList(urls);
-    }
-  }, [campaign]);
 
   useEffect(() => {
     const allRows = document.querySelectorAll('[data-row-index]');
@@ -53,17 +67,22 @@ export const CampaignDetailPage = () => {
           !!checkedState[category as keyof typeof checkedState];
       }
     });
-  }, [checkedState, urlsList]);
+  }, [checkedState, normalizedData]);
+
+  if (isLoadingUrls || (campaign && !campaign.campaignUrls && isLoading))
+    return <div>Loading...</div>;
 
   const handleDownload = () => {
-    const selectedRows = urlsList.filter((row) => checkedState[row.category]);
+    const selectedRows = normalizedData.filter(
+      (row) => checkedState[row.category as keyof typeof checkedState],
+    );
 
     if (selectedRows.length === 0) {
       alert('No hay filas seleccionadas para descargar');
       return;
     }
 
-    const headers = ['url', 'category'];
+    const headers = ['urls', 'category'];
 
     const csvRows = [
       headers.join(','), // Añade las cabeceras
@@ -94,7 +113,7 @@ export const CampaignDetailPage = () => {
         </div>
       </section>
 
-      {urlsList.length > 0 && (
+      {normalizedData.length > 0 && (
         <>
           <div className="flex items-center justify-end">
             <Input
@@ -112,14 +131,15 @@ export const CampaignDetailPage = () => {
               <div className="flex justify-between gap-2 mt-6">
                 <Efficiency
                   reporting={campaign?.efficiencyReport ?? null}
-                  urls={urlsList}
                   checkedState={checkedState}
+                  isAllSites={!campaign?.campaignUrls.length}
                   onCategoryChange={handleCategoryChange}
+                  campaignId={campaign?.id ?? 0}
                 />
                 <Button
+                  onClick={handleDownload}
                   variant={'create'}
                   className="text-[12px] w-48"
-                  onClick={handleDownload}
                 >
                   <DownloadIcon className="w-4 h-4 mr-1" />
                   Descargar Excel
@@ -128,7 +148,7 @@ export const CampaignDetailPage = () => {
               <div className="mt-8 w-full px-5 py-7 b bg-[#F9FBFC] rounded-md">
                 <DataTable
                   columns={columns}
-                  data={urlsList}
+                  data={normalizedData}
                   globalFilter={globalFilter}
                   checkedState={checkedState}
                 />
@@ -139,4 +159,23 @@ export const CampaignDetailPage = () => {
       )}
     </div>
   );
+};
+const normalizeData = (
+  data: { data: URLInterface[] } | CampaignInterface,
+  source: 'campaign' | 'allUrls',
+): SitesInterface[] => {
+  if (source === 'campaign') {
+    const campaigns = data as CampaignInterface;
+    return campaigns.campaignUrls.map((campaign: CampaignUrlsInterface) => ({
+      id: campaign.url.id,
+      url: campaign.url.url,
+      isGreen: campaign.url.isGreen,
+      updated: campaign.url.updated,
+      evaluated: campaign.url.evaluated,
+      category: campaign.url.category,
+      score: campaign.url.score,
+    }));
+  }
+  const urls = data as { data: URLInterface[] };
+  return urls.data;
 };

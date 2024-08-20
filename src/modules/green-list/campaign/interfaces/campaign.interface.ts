@@ -38,9 +38,9 @@ export interface URLInterface {
   evaluated: Date;
   category: Category;
   score: number;
-  createdAt: Date;
-  updatedAt: Date;
-  insight: Insight | null;
+  createdAt?: Date;
+  updatedAt?: Date;
+  insight?: Insight | null;
 }
 
 export interface Insight {

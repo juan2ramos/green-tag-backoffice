@@ -1,41 +1,57 @@
 import { Checkbox } from '@/components/ui/checkbox';
-import { URLInterface } from '../interfaces/campaign.interface';
+import { useQuery } from '@tanstack/react-query';
+import {
+  getEfficiencyAllSites,
+  getEfficiencyByCampaigns,
+} from '../services/efficiencies';
+
 interface EfficiencyProps {
-  urls: URLInterface[];
   checkedState: { [key: string]: boolean };
   onCategoryChange: (category: string, isChecked: boolean) => void;
   reporting: number | null;
+  isAllSites: boolean;
+  campaignId: number;
 }
 
 export const Efficiency = ({
-  urls,
   checkedState,
   onCategoryChange,
   reporting,
+  isAllSites,
+  campaignId,
 }: EfficiencyProps) => {
+  const { data: efficiencyAllSites } = useQuery({
+    queryKey: ['efficiency'],
+    queryFn: () => getEfficiencyAllSites(),
+    enabled: isAllSites,
+  });
+  const { data: efficiency } = useQuery({
+    queryKey: ['efficiency'],
+    queryFn: () => getEfficiencyByCampaigns(campaignId),
+    enabled: !isAllSites,
+  });
   const onClickEfficiency = (id: string) => {
     onCategoryChange(id, !checkedState[id]);
   };
-  const calculateAverage = (categories: string[]): string => {
-    const selectedUrls = urls.filter((url) =>
-      categories.includes(url.category),
-    );
-    if (selectedUrls.length === 0) return '0';
-    const totalScore = selectedUrls.reduce((acc, url) => acc + url.score, 0);
-    const average = totalScore / selectedUrls.length;
-    return Number.isInteger(average) ? average.toString() : average.toFixed(2);
+  const calculateAverage = (categories: string): string => {
+    const efficiencies = efficiency ? efficiency : efficiencyAllSites;
+    const efficiencySelect = efficiencies?.find((efficiency: Efficiency) => {
+      if (efficiency.category === categories) {
+        return efficiency.result;
+      }
+    });
+
+    return efficiencySelect ? efficiencySelect?.result : 0;
   };
-  const getSelectedCategories = (): string[] => {
-    const categories: string[] = [];
-    if (checkedState.A) categories.push('A');
-    if (checkedState.B) categories.push('B');
-    if (checkedState.C) categories.push('C');
-    if (checkedState.D) categories.push('D');
+  const getSelectedCategories = (): string => {
+    let categories: string = '';
+    Object.keys(checkedState).forEach((key) => {
+      if (checkedState[key]) categories += key;
+    });
     return categories;
   };
 
-  const selectedCategories = getSelectedCategories();
-  const averageScore = calculateAverage(selectedCategories);
+  const averageScore = calculateAverage(getSelectedCategories());
   return (
     <div className="flex gap-3 items-center">
       <div className="flex gap-2 items-center ">
@@ -83,7 +99,7 @@ export const Efficiency = ({
           <>
             <span className="font-semibold">Eficiencia Reporte: </span>
             <span className=" font-robotoFlex text-[#00CA21] ">
-              {reporting}%
+              {Math.trunc(reporting * 100)}%
             </span>
           </>
         )}
@@ -91,3 +107,8 @@ export const Efficiency = ({
     </div>
   );
 };
+
+export interface Efficiency {
+  category: string;
+  result: string;
+}

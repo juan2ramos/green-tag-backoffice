@@ -178,16 +178,6 @@ export const UpdateCampaign = ({ campaign }: UpdateCampaignProps) => {
           </div>
         </div>
       </div>
-      {campaign.campaignUrls.length > 0 ||
-        (campaign.efficiencyReport && (
-          <div className="pt-6">
-            {' '}
-            <span className="font-semibold">Eficiencia Reporte: </span>
-            <span className=" font-robotoFlex text-[#00CA21] ">
-              {campaign.efficiencyReport}%
-            </span>
-          </div>
-        ))}
     </>
   );
 };

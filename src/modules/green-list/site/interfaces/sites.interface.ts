@@ -6,6 +6,6 @@ export interface SitesInterface {
   evaluated: Date;
   category: string;
   score: number;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt?: Date;
+  updatedAt?: Date;
 }

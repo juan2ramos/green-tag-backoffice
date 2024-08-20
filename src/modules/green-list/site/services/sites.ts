@@ -1,14 +1,18 @@
 import { greenListApi } from '@/api/green-list-api';
 
 interface Params {
-  page: number;
-  pageSize: number;
-  sortBy: string;
-  sortOrder: string;
+  page?: number;
+  pageSize?: number;
+  sortBy?: string;
+  sortOrder?: string;
 }
 
-export const getSites = async (params: Params) => {
-  const { page, pageSize, sortBy, sortOrder } = params;
+export const getSites = async ({
+  page = 1,
+  pageSize = 10000,
+  sortBy = 'url',
+  sortOrder = 'ASC',
+}: Params = {}) => {
   const offset = (page - 1) * pageSize;
   const { data } = await greenListApi('urls/get-all', {
     params: {
