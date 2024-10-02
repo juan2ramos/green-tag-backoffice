@@ -1,7 +1,14 @@
 import { greenListApi } from '@/api/green-list-api';
+import { VideoResponseInterface } from '../interfaces/video.interface';
 
 export const getVideos = async () => {
   const { data } = await greenListApi.get(`video`);
+  return data;
+};
+export const getVideo = async (id: number): Promise<VideoResponseInterface> => {
+  const { data } = await greenListApi.get<VideoResponseInterface>(
+    `video/${id}`,
+  );
   return data;
 };
 export const deleteVideo = async (id: number) => {

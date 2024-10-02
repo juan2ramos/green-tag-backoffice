@@ -1,5 +1,5 @@
 export const routes = [
-  /* TODO {
+  {
     path: 'green-tag',
     to: '/green-tag/agencies',
     text: 'GreenTag',
@@ -9,9 +9,9 @@ export const routes = [
       { to: '/green-tag/compensation', text: 'Compensar' },
       { to: '/green-tag/report', text: 'Reportes' },
       { to: '/green-tag/bonos', text: 'Bonos' },
-       { to: '/green-tag/users', text: 'Usuarios' }, 
+      { to: '/green-tag/users', text: 'Usuarios' },
     ],
-  }, */
+  },
   {
     path: 'green-list',
     to: '/green-list/sites',
