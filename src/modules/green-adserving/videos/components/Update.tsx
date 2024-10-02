@@ -5,7 +5,7 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form';
-import { useFieldArray, useForm } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Input } from '@/components/ui/input';
@@ -20,13 +20,13 @@ import { ArrowRightIcon } from '@radix-ui/react-icons';
 
 import { useState } from 'react';
 
-import { useParams } from 'react-router-dom';
+/* import { useParams } from 'react-router-dom'; */
 
 import { FormDataSchema, formSchema } from '../interfaces/schema-form';
 
 export const UpdateVideo = () => {
   const [fileInputKey] = useState(Date.now());
-  const [videoPreview, setVideoPreview] = useState<string | null>(null);
+  const [videoPreview] = useState<string | null>(null);
 
   const form = useForm<FormDataSchema>({
     resolver: zodResolver(formSchema),
@@ -50,22 +50,22 @@ export const UpdateVideo = () => {
       additionalScripts: [],
     },
   });
-
+  /* 
   const { fields, append, remove } = useFieldArray({
     name: `additionalScripts`,
     control: form.control,
-  });
+  }); */
 
-  const handleVideoUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0] || null;
-    form.setValue('file', file);
+  const handleVideoUpload = () => {
+    /*     const file = e.target.files?.[0] || null; */
+    /* form.setValue('file', file);
     if (file) {
       const url = URL.createObjectURL(file);
       setVideoPreview(url);
-    }
+    } */
   };
 
-  const onSubmit = (data: z.infer<typeof formSchema>) => {
+  /*  const onSubmit = (data: z.infer<typeof formSchema>) => {
     const updatedVideoData = {
       ...data,
       id: videoId,
@@ -74,7 +74,10 @@ export const UpdateVideo = () => {
 
     updateMutation.mutate(updatedVideoData);
   };
-
+ */
+  const onSubmit = (data: z.infer<typeof formSchema>) => {
+    console.log(data);
+  };
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -102,7 +105,7 @@ export const UpdateVideo = () => {
                 <FormItem>
                   <FormControl>
                     <Select
-                      disabled={isLoadingVideo}
+                      /* disabled={isLoadingVideo} */
                       onValueChange={field.onChange}
                       defaultValue={field.value}
                       value={field.value}
@@ -183,12 +186,12 @@ export const UpdateVideo = () => {
 
         <div className="w-full mt-14 mb-4 flex justify-end">
           <Button
-            variant={'created'}
+            /* variant={'created'} */
             className="w-1/4"
             type="submit"
-            disabled={updateMutation.isLoading}
+            /*    disabled={updateMutation.isLoading} */
           >
-            {updateMutation.isLoading ? 'Actualizando...' : 'Actualizar video'}
+            {/*  {updateMutation.isLoading ? 'Actualizando...' : 'Actualizar video'} */}
             <ArrowRightIcon className="w-4 h-4" />
           </Button>
         </div>
