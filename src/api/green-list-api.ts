@@ -7,16 +7,7 @@ const baseURL =
     : process.env.VITE_API_STAGING_GREEN_LIST_URL;
 
 console.log('baseURL', baseURL);
-console.log('process.env.NODE_ENV', process.env.NODE_ENV);
-console.log(
-  'VITE_API_PRODUCTION_GREEN_LIST_URL',
-  process.env.VITE_API_PRODUCTION_GREEN_LIST_URL,
-);
-console.log(
-  'VITE_API_STAGING_GREEN_LIST_URL',
-  process.env.VITE_API_STAGING_GREEN_LIST_URL,
-);
-
+console.log('process.env', JSON.stringify(process.env, null, 2));
 const greenListApi = axios.create({ baseURL });
 
 greenListApi.interceptors.request.use((config) => {
