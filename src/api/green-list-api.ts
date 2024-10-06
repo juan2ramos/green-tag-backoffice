@@ -1,13 +1,11 @@
 import axios from 'axios';
 import { useAuthStore } from '../stores/auth.store';
 
-const baseURL =
-  process.env.NODE_ENV === 'production'
-    ? process.env.VITE_API_PRODUCTION_GREEN_LIST_URL
-    : process.env.VITE_API_STAGING_GREEN_LIST_URL;
+const nodeEnv = import.meta.env.NODE_ENV;
+const apiProduction = import.meta.env.VITE_API_PRODUCTION_GREEN_LIST_URL;
+const apiStaging = import.meta.env.VITE_API_STAGING_GREEN_LIST_URL;
 
-console.log('baseURL', baseURL);
-console.log('process.env', JSON.stringify(process.env, null, 2));
+const baseURL = nodeEnv === 'production' ? apiProduction : apiStaging;
 const greenListApi = axios.create({ baseURL });
 
 greenListApi.interceptors.request.use((config) => {

@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { useAuthStore } from '../stores/auth.store';
 
-const baseURL =
-  process.env.NODE_ENV === 'production'
-    ? process.env.VITE_API_PRODUCTION_GREEN_TAG_URL
-    : process.env.VITE_API_STAGING_GREEN_TAG_URL;
+const nodeEnv = import.meta.env.NODE_ENV;
+const apiProduction = import.meta.env.VITE_API_PRODUCTION_GREEN_TAG_URL;
+const apiStaging = import.meta.env.VITE_API_STAGING_GREEN_TAG_URL;
+const baseURL = nodeEnv === 'production' ? apiProduction : apiStaging;
 const greenTagApi = axios.create({ baseURL });
 
 greenTagApi.interceptors.request.use((config) => {
