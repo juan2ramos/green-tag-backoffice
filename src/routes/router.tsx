@@ -1,23 +1,24 @@
 import { createBrowserRouter } from 'react-router-dom';
 import HomePage from '../modules/home/pages/HomePage';
 import { Root } from '../Root';
-import { BonusPage } from '../modules/green-tag/bonus/pages/BonusPage';
-import AdvertiserPage from '../modules/green-tag/advertiser/pages/AdvertiserPage';
-import CompensationPage from '../modules/green-tag/compensation/pages/CompensationPage';
 
-import AgencyPage from '../modules/green-tag/agency/pages/AgencyPage';
-import ReportPage from '../modules/green-tag/reports/pages/ReportPage';
+import AdvertiserPage from '@/modules/green-tag/advertiser/pages/AdvertiserPage';
+import CompensationPage from '@/modules/green-tag/compensation/pages/CompensationPage';
+import { BonusPage } from '@/modules/green-tag/bonus/pages/BonusPage';
+import AgencyPage from '@/modules/green-tag/agency/pages/AgencyPage';
+import ReportPage from '@/modules/green-tag/reports/pages/ReportPage';
 import { DefaultLayout } from '../layouts/DefaultLayout';
 import { AuthLayout } from '../layouts/AuthLayout';
 
 import { LoginPage } from '@/modules/auth/pages/auth/Login';
-import { ProjectPage } from '@/modules/green-tag/projects/pages/ProjectPage';
 import { CampaignPage } from '@/modules/green-list/campaign/pages/campaignPage';
 import { ClientPage } from '@/modules/green-list/client/pages/clientPage';
 import { CampaignDetailPage } from '@/modules/green-list/campaign/pages/campaignDetailPage';
 import { SitePage } from '@/modules/green-list/site/pages/sitePage';
 import { VideoPage } from '@/modules/green-adserving/videos/pages/videoPage';
 import { RichMediaPage } from '@/modules/green-adserving/rich-media/pages/richMediaPage';
+import { VideoPageDetail } from '@/modules/green-adserving/videos/pages/videoDetailPage';
+import { ProjectPage } from '@/modules/green-tag/projects/pages/ProjectPage';
 
 //import ErrorPage from '../pages/ErrorPage';
 
@@ -59,6 +60,7 @@ export const router = createBrowserRouter([
         children: [
           { path: 'videos', element: <VideoPage /> },
           { path: 'rich-media', element: <RichMediaPage /> },
+          { path: 'videos/:id', element: <VideoPageDetail /> },
         ],
       },
       {

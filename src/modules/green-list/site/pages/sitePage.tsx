@@ -2,9 +2,10 @@ import { useQuery } from '@tanstack/react-query';
 import { downloadSites, getSites } from '../services/sites';
 import { DataTable } from '../components/data-table/data-table';
 import { Button } from '@/components/ui/button';
-import { DownloadIcon } from '@radix-ui/react-icons';
+import { DownloadIcon, UploadIcon } from '@radix-ui/react-icons';
 import { useEffect, useState } from 'react';
 import { columns } from '../components/data-table/columns';
+import { UploadUrls } from '../components/upload-urls';
 
 export const SitePage = () => {
   const [page, setPage] = useState(1);
@@ -13,6 +14,7 @@ export const SitePage = () => {
   const [sortOrder, setSortOrder] = useState('DESC');
   const [totalRecords, setTotalRecords] = useState(0);
   const [loading, setLoading] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
   const { data: sites } = useQuery({
     queryKey: ['sites', page, pageSize, sortBy, sortOrder],
     queryFn: () => getSites({ page, pageSize, sortBy, sortOrder }),
@@ -50,20 +52,25 @@ export const SitePage = () => {
   };
   return (
     <div className="flex flex-col gap-4">
+      <UploadUrls
+        dialogOpen={dialogOpen}
+        handleCancel={() => setDialogOpen(false)}
+      />
       <section className="wrapper">
         <div className="w-full">
           <h2 className="pb-2">Listado de sitios </h2>
           <hr />
           <div className="w-full flex justify-end mt-8 gap-2">
-            {/* TODO {
+            {
               <Button
                 variant={'create'}
                 className="text-[12px] w-48 bg-[#D8EAF7] text-[#4D6D98]"
+                onClick={() => setDialogOpen(true)}
               >
                 <UploadIcon className="w-4 h-4 mr-1" />
                 Cargar sitios CSV
               </Button>
-            } */}
+            }
             <Button
               variant={'create'}
               className="text-[12px] w-48"

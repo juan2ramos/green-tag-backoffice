@@ -7,6 +7,19 @@ export const getCompensation = async () => {
   return data?.payload;
 };
 
+export const campaignsWithOutCompensation = async () => {
+  const { data } = await greenTagApi.get(
+    `compensation/campaignsWithOutCompensation`,
+  );
+  return data?.payload;
+};
+export const creativeDaysWithOutCompensation = async (campaignId: string) => {
+  const { data } = await greenTagApi.get(
+    `compensation/creativesWithOutCompensation/${campaignId}`,
+  );
+  return data?.payload;
+};
+
 export const offsetCompensation = async (body: {
   legacyBonusId: string;
   creativeGroupId: string;

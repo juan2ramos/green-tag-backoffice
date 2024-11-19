@@ -7,6 +7,7 @@ export const normalizeData = (data: Campaign[]): DataTableProps[] => {
     campaign.creativeGroups.map((group) => ({
       campaignId: campaign.id,
       campaignName: campaign.name,
+      externalId: campaign.externalId,
       advertiserName: campaign.advertiser.name,
       agencyName: campaign.advertiser.compensationStrategy.agency.name,
       compensationStrategy: campaign.advertiser.compensationStrategy.name,

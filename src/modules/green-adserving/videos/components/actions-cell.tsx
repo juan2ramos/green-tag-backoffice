@@ -17,6 +17,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import { useDeleteVideoMutation } from '../hooks/useDeleteVideo';
+import { Link } from 'react-router-dom';
 
 const ActionsCell = ({ id }: { id: number }) => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -42,8 +43,16 @@ const ActionsCell = ({ id }: { id: number }) => {
             <DotsHorizontalIcon className="h-4 w-4" />
           </Button>
         </DropdownMenuTrigger>
+
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+
+          <DropdownMenuItem>
+            <Link className="w-full" to={`/green-adserving/videos/${id}`}>
+              Editar
+            </Link>
+          </DropdownMenuItem>
+
           <DropdownMenuItem onSelect={handleOpenDialog}>
             Eliminar
           </DropdownMenuItem>

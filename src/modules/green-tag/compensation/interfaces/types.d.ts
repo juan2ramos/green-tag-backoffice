@@ -75,4 +75,20 @@ export interface DataTableProps {
   impressions: string;
   emissions: string;
   dateRange: string;
+  externalId: string;
+}
+
+export interface CampaignsWithOutCompensationResponse {
+  campaignId: string;
+  campaignName: string;
+  impressionsLeftToCompensate: string;
+  emissionsLeftToCompensate: string;
+  externalId: string;
+  platformName: string;
+}
+
+export interface CreativesWithOutCompensationResponse {
+  day: Date;
+  impressionsLeftToCompensate: string;
+  emissionsLeftToCompensate: string;
 }

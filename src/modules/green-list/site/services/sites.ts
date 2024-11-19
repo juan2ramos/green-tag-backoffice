@@ -30,3 +30,14 @@ export const downloadSites = async () => {
     responseType: 'blob',
   });
 };
+
+export const uploadUrls = async (file: File) => {
+  const formData = new FormData();
+
+  formData.append('file', file);
+  const headers = { 'Content-Type': 'multipart/form-data' };
+  const { data } = await greenListApi.post('csv-file/upload-urls', formData, {
+    headers,
+  });
+  return data?.payload;
+};

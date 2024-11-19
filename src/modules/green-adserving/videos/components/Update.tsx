@@ -23,10 +23,15 @@ import { useState } from 'react';
 /* import { useParams } from 'react-router-dom'; */
 
 import { FormDataSchema, formSchema } from '../interfaces/schema-form';
-
-export const UpdateVideo = () => {
+interface props {
+  video: {
+    videoName: string;
+  };
+}
+export const UpdateVideo = ({ video }: props) => {
   const [fileInputKey] = useState(Date.now());
   const [videoPreview] = useState<string | null>(null);
+  console.log(video);
 
   const form = useForm<FormDataSchema>({
     resolver: zodResolver(formSchema),
@@ -90,7 +95,11 @@ export const UpdateVideo = () => {
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input {...field} placeholder="Nombre del video" />
+                    <Input
+                      {...field}
+                      placeholder="Nombre del video"
+                      value={video.videoName}
+                    />
                   </FormControl>
                   <FormMessage />
                 </FormItem>

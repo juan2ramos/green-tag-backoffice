@@ -5,10 +5,8 @@ export const getVideos = async () => {
   const { data } = await greenListApi.get(`video`);
   return data;
 };
-export const getVideo = async (id: number): Promise<VideoResponseInterface> => {
-  const { data } = await greenListApi.get<VideoResponseInterface>(
-    `video/${id}`,
-  );
+export const getVideo = async (id: string): Promise<VideoResponseInterface> => {
+  const { data } = await greenListApi.get(`video/${id}`);
   return data;
 };
 export const deleteVideo = async (id: number) => {
