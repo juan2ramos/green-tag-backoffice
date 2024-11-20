@@ -16,6 +16,7 @@ import { Button } from '@/components/ui/button';
 
 import { Checkbox } from '@/components/ui/checkbox';
 import { SitesInterface } from '@/modules/green-list/site/interfaces/sites.interface';
+import { format } from 'date-fns';
 export const columns: ColumnDef<SitesInterface>[] = [
   {
     id: 'select',
@@ -78,19 +79,15 @@ export const columns: ColumnDef<SitesInterface>[] = [
       return <div className="text-center">{score}</div>;
     },
   },
-  {
-    accessorKey: 'emissions',
-    header: () => 'Emisiones',
-    cell: () => {
-      return <div className="text-center">100Kg</div>;
-    },
-  },
+
   {
     accessorKey: 'evaluated',
     header: () => 'Fechas  evaluación',
     cell: ({ row }) => {
       const evaluated = row.getValue('evaluated') as string;
-      return <div className="text-center">{evaluated}</div>;
+      return (
+        <div className="text-center">{format(evaluated, 'dd-MM-yyyy')}</div>
+      );
     },
   },
   {
