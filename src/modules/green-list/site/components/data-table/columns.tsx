@@ -16,7 +16,7 @@ import { Button } from '@/components/ui/button';
 
 import { Checkbox } from '@/components/ui/checkbox';
 import { SitesInterface } from '@/modules/green-list/site/interfaces/sites.interface';
-import { format } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 export const columns: ColumnDef<SitesInterface>[] = [
   {
     id: 'select',
@@ -76,7 +76,9 @@ export const columns: ColumnDef<SitesInterface>[] = [
     header: () => 'Score',
     cell: ({ row }) => {
       const score = row.getValue('score') as string;
-      return <div className="text-center">{score}</div>;
+      return (
+        <div className="text-center font-thin font-robotoFlex">{score}</div>
+      );
     },
   },
 
@@ -85,8 +87,11 @@ export const columns: ColumnDef<SitesInterface>[] = [
     header: () => 'Fechas  evaluación',
     cell: ({ row }) => {
       const evaluated = row.getValue('evaluated') as string;
+      const evaluatedDate = parseISO(evaluated);
       return (
-        <div className="text-center">{format(evaluated, 'dd-MM-yyyy')}</div>
+        <div className="text-center font-thin font-robotoFlex">
+          {format(evaluatedDate, 'dd-MM-yyyy')}
+        </div>
       );
     },
   },
