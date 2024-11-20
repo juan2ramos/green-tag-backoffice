@@ -11,12 +11,14 @@ interface DatePickerWithRangeProps {
   date: DateRange | undefined;
   setDate: (date: DateRange | undefined) => void;
   locale?: Locale;
+  className?: string;
 }
 
 export function DatePickerWithRange({
   date,
   setDate,
   locale = esLocale,
+  className,
 }: DatePickerWithRangeProps) {
   return (
     <Popover>
@@ -27,6 +29,7 @@ export function DatePickerWithRange({
           className={cn(
             'w-[220px] justify-start text-left font-normal',
             !date && 'text-muted-foreground',
+            className || '',
           )}
         >
           <CalendarIcon className="mr-2 h-4 w-4" />

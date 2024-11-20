@@ -10,6 +10,7 @@ export const routes = [
       { to: '/green-tag/report', text: 'Reportes' },
       { to: '/green-tag/bonos', text: 'Bonos' },
       { to: '/green-tag/users', text: 'Usuarios' },
+      { to: '/green-tag/manual-offsets', text: 'Compensaciones manuales' },
     ],
   },
   {

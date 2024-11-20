@@ -19,6 +19,7 @@ import { VideoPage } from '@/modules/green-adserving/videos/pages/videoPage';
 import { RichMediaPage } from '@/modules/green-adserving/rich-media/pages/richMediaPage';
 import { VideoPageDetail } from '@/modules/green-adserving/videos/pages/videoDetailPage';
 import { ProjectPage } from '@/modules/green-tag/projects/pages/ProjectPage';
+import OffsetPage from '@/modules/green-tag/manual-offsets/pages/offsetPage';
 
 //import ErrorPage from '../pages/ErrorPage';
 
@@ -42,6 +43,7 @@ export const router = createBrowserRouter([
           { path: 'bonos', element: <BonusPage /> },
           { path: 'projects', element: <ProjectPage /> },
           { path: 'report', element: <ReportPage /> },
+          { path: 'manual-offsets', element: <OffsetPage /> },
         ],
       },
       {
