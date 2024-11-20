@@ -1,5 +1,5 @@
 import { ColumnDef } from '@tanstack/react-table';
-
+import { toZonedTime } from 'date-fns-tz';
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -88,9 +88,10 @@ export const columns: ColumnDef<SitesInterface>[] = [
     cell: ({ row }) => {
       const evaluated = row.getValue('evaluated') as string;
       const evaluatedDate = parseISO(evaluated);
+      const zonedDate = toZonedTime(evaluatedDate, 'UTC');
       return (
         <div className="text-center font-thin font-robotoFlex">
-          {format(evaluatedDate, 'dd-MM-yyyy')}
+          {format(zonedDate, 'dd-MM-yyyy')}
         </div>
       );
     },
